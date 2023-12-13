@@ -1,9 +1,74 @@
-import React from 'react'
-
-function Documents() {
+import {
+  Box,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
+import React from "react";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+function Documents() {  
   return (
-    <div>Documents</div>
-  )
+    <Grid container gap={2}  height={'600px'} >
+      <Grid item md={12}> 
+        <Typography variant="h5" fontWeight="700" color={"gray"}>
+          Employee Information{" "}
+        </Typography>
+      </Grid>
+      <Grid item md={7}>
+        <Typography variant="body2" color={"gray"}>
+          Please download the template related to each file, via clicking on the
+          download template button, then upload it after filling it via the
+          upload template button
+        </Typography>
+      </Grid>
+      <Grid item md={12}>
+        <Grid item md={4}>
+          <Paper
+            variant="outlined"
+            style={{
+              border: true ? "2px dashed #C4B28F" : "2px dashed #C4B28F",
+              padding: 20,
+              textAlign: "center",
+              cursor: "pointer",
+              background: true ? "#fff" : "#fafafa",
+              borderRadius: "20px",
+            }}
+          >
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="raised-button-file"
+              multiple
+              type="file"
+            />
+            <label htmlFor="raised-button-file">
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <CloudUploadIcon style={{ fontSize: 60, color: "#BE9952" }} />
+                </IconButton>
+                <Typography>Upload Bulk of Beneficiaries</Typography>
+                <Typography>Use a csv file</Typography>
+              </Box>
+            </label>
+          </Paper>
+        </Grid>
+      </Grid>
+      <Grid item md={12}>
+        <FormControlLabel
+          control={<Checkbox />}
+          label="I approve and authorize BDC to perform I-Score investigation and all required investigations to proceed the loan request"
+        />
+      </Grid>
+    </Grid>
+  );
 }
 
-export default Documents
+export default Documents;
