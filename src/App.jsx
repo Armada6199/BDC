@@ -21,7 +21,7 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const [loans, setLoans] = React.useState(loanDetailsData);
-  const [currentLoan, setCurrentLoan] = React.useState(loans[2]);
+  const [currentLoan, setCurrentLoan] = React.useState(loans[1]);
   const {
     register,
     handleSubmit,

@@ -1,13 +1,22 @@
 import { Box, Divider, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import InfoIcon from "@mui/icons-material/Info";
-import {loanDetailsData} from '../assets/loans'
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CustomChart from "./CustomChart";
 import { glassmorphismStyle } from "../assets/styles";
-function LoanEligibility({currentLoan}) {
+import  calculateEMI  from "../utils/utils";
+function LoanEligibility({ currentLoan, setCurrentLoan }) {
+  useEffect(() => {
+   const {totalAmount,totalInterests,totalInterestLayers}=calculateEMI(currentLoan.loanAmount,currentLoan.intrestRates);
+   setCurrentLoan({
+      ...currentLoan,
+      EMI: totalAmount,
+      interestPayable: totalInterests,
+      payPerMonth: totalAmount / currentLoan.numberOfMonths,
+      totalAppliedLayers:totalInterestLayers
+    });
+  }, []);
   return (
-    <Grid container height={'600px'}>
+    <Grid container height={"600px"}>
       <Grid container item gap={4} md={7}>
         <Grid container item gap={1} alignItems={"center"}>
           <Typography variant="h4">My loan</Typography>
@@ -15,98 +24,125 @@ function LoanEligibility({currentLoan}) {
         </Grid>
         <Grid container item direction={"column"}>
           <Typography variant="h5">EVERY MONTH I PAY</Typography>
-          <Typography variant="h4">699 JD</Typography>
+          <Typography variant="h4">{parseFloat(currentLoan.payPerMonth.toFixed(3))} JD</Typography>
         </Grid>
-
         {/* loan type an amount */}
-        <Grid container item md={12} gap={1}>
-          <Grid
-            container
-            gap={2}
-            item
-            md={8}
-            sx={{
-              borderTop: "1px solid lightgray",
-              borderBottom: "1px solid lightgray",
-            }}
-          >
-            <Grid item md={5}>
-              <Typography variant="h6">Loan Type</Typography>
-              <Box display={'flex'} gap={1} alignItems={'center'}>
-              {currentLoan.loadIcon({width:'25px',height:'25px',color:"black"})}
+        <Grid
+          container
+          sx={{
+            borderTop: "1px solid darkgray",
+            borderBottom: "1px solid darkgray",
+          }}
+          alignItems={"center"}
+          item
+          md={11}
+          gap={2}
+        >
+          <Grid item md={3}>
+            <Typography variant="h6">Loan Type</Typography>
+            <Box display={"flex"} gap={1} alignItems={"center"}>
+              {currentLoan.loadIcon({
+                width: "25px",
+                height: "25px",
+                color: "black",
+              })}
               <Typography variant="h5">{currentLoan.title}</Typography>
-              </Box>
-            </Grid>
-            <Divider
-              sx={{
-                width: "1px",
-                height: "80%",
-                backgroundColor: "lightgray",
-                alignSelf: "center",
-              }}
-            />
-
-            <Grid item md={5}>
-              <Typography variant="h6">Loan Amount</Typography>
-              <Typography variant="h5">{currentLoan.amount}</Typography>
-            </Grid>
+            </Box>
           </Grid>
-          <Grid
-            container
-            gap={2}
-            item
-            md={8}
-            sx={{ borderBottom: "1px solid lightgray" }}
-          >
-            <Grid item md={5}>
+          <Divider
+            sx={{ backgroundColor: "darkgray", width: "1px", height: "80%" }}
+          />
+          <Grid item md={3}>
+            <Typography variant="h6">Loan Amount</Typography>
+            <Typography variant="h5">{currentLoan.loanAmount}</Typography>
+          </Grid>
+          <Divider
+            sx={{ backgroundColor: "darkgray", width: "1px", height: "80%" }}
+          />
+
+          <Grid container gap={2} item md={4}>
+            <Grid item md={12}>
               <Typography variant="h6">Loan term (in months)</Typography>
               <Typography variant="h5">{currentLoan.numberOfMonths}</Typography>
-            </Grid>
-            <Divider
-              sx={{ width: "1px", height: "80%", backgroundColor: "lightgray" }}
-            />
-            <Grid item md={5}>
-              <Typography variant="h6">INTEREST RATE </Typography>
-              <Typography variant="h5">6.7%</Typography>
             </Grid>
           </Grid>
         </Grid>
         {/* privileges and terms  */}
-        <Grid container item md={12}>
-          <Grid container gap={2} item md={5}>
-            {currentLoan.privileges.map((priv) => (
-              <Grid
-                item
-                key={priv}
-                md={12}
-                display={"flex"}
-                alignItems={"center"}
-                gap={1}
-              >
-                <CheckCircleIcon
-                  sx={{ width: "31px", height: "41px", color: "#C4B28F" }}
-                />
-                <Typography variant="subtitle1">{priv}</Typography>
-              </Grid>
-            ))}
+       
+      <Grid container item md={11}>
+      {currentLoan.totalAppliedLayers.map(layer=>(
+          <Grid container item md={3}>
+          <Grid item>
+          <Box display={'flex'} gap={1}>
+          <Typography>First Layer</Typography>
+          <InfoIcon sx={{color:"#C4B28F"}}/>
+          </Box>
           </Grid>
-          <Grid container item md={5}>
-            {currentLoan.termsAndConditions.map((term) => (
-              <Grid
-                item
-                key={term}
-                display={"flex"}
-                alignItems={"center"}
-                md={12}
-                gap={1}
-              >
-                <CheckCircleIcon
-                  sx={{ width: "31px", height: "41px", color: "#C4B28F" }}
-                />
-                <Typography variant="subtitle1">{term}</Typography>
+            <Grid item>
+            <Box display={'flex'} gap={1}>
+          <Typography>Total Applied</Typography>
+          <Typography>{layer.totalApplied}</Typography>
+          </Box>
+            </Grid>
+        </Grid>
+          ))}
+          {/* <Grid container item md={3}>
+            {console.log(currentLoan.totalAppliedLayers[0])}
+            <Grid item>
+            <Box display={'flex'} gap={1}>
+            <Typography>First Layer</Typography>
+            <InfoIcon sx={{color:"#C4B28F"}}/>
+            </Box>
+            </Grid>
+              <Grid item>
+              <Box display={'flex'} gap={1}>
+            <Typography>Total Applied</Typography>
+            <Typography>{currentLoan.totalAppliedLayers[0].totalApplied}</Typography>
+            </Box>
               </Grid>
-            ))}
           </Grid>
+          <Grid container item md={3}>
+            <Grid item>
+            <Box display={'flex'} gap={1}>
+            <Typography>Second Layer</Typography>
+            <InfoIcon sx={{color:"#C4B28F"}}/>
+            </Box>
+            </Grid>
+            <Grid item >
+            <Box display={'flex'} gap={1}>
+            <Typography>Total Applied</Typography>
+            <Typography>{currentLoan.totalAppliedLayers[1].totalApplied}</Typography>
+            </Box>
+            </Grid>
+          </Grid>
+          <Grid container item md={3}>
+            <Grid item >
+            <Box display={'flex'} gap={1}>
+            <Typography>Third Layer</Typography>
+            <InfoIcon sx={{color:"#C4B28F"}}/>
+            </Box>
+            </Grid>
+              <Grid item>
+              <Box display={'flex'} gap={1}>
+            <Typography>Total Applied</Typography>
+            <Typography>{currentLoan.totalAppliedLayers[2].totalApplied}</Typography>
+            </Box>
+              </Grid>
+          </Grid>
+          <Grid container item md={3} >
+            <Grid item >
+            <Box display={'flex'} gap={1}>
+            <Typography>Forth Layer</Typography>
+            <InfoIcon sx={{color:"#C4B28F"}} />
+            </Box>
+            </Grid>
+              <Grid>
+              <Box display={'flex'} gap={1}>
+            <Typography>Total Applied</Typography>
+            <Typography>{currentLoan.totalAppliedLayers[3].totalApplied}</Typography>
+            </Box>
+              </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
       <Grid
@@ -134,11 +170,13 @@ function LoanEligibility({currentLoan}) {
             <Grid item md={5}>
               <Typography variant="h6">EMI Amount</Typography>
               <Typography variant="body1">Principal + Interest </Typography>
-              <Typography variant="h5">40,00 JD</Typography>
+              <Typography variant="h5">{currentLoan.EMI}</Typography>
             </Grid>
             <Grid item md={5}>
               <Typography variant="h6">Interest Payable</Typography>
-              <Typography variant="h5">10,00 JD</Typography>
+              <Typography variant="h5">
+                {currentLoan.interestPayable}
+              </Typography>
             </Grid>
           </Grid>
         </Box>

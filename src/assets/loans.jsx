@@ -23,10 +23,10 @@ export const loanDetailsData = [
     maxAmount: 210_000,
     minAmount: 5000,
     intrestRates: [
-      { rate: 3.24, max: 400_00 },
-      { rate: 4.0, max: 1600_00 },
-      { rate: 6.0, max: 1500_0 }, 
-      { rate: 10.5, max: 190_000 },
+      { rate: .325, max: 400_00 },
+      { rate: .04, max: 1600_00 },
+      { rate: .06, max: 1500_0 }, 
+      { rate: .105, max: 190_000 },
     ],
     EMI: 0,
     payPerMonth: 0,
@@ -35,6 +35,10 @@ export const loanDetailsData = [
     interestPayable:0,
     minMonths:12,
     maxMonths:300,
+    prevLoanAmount:0,
+    hasPrevLoan:false,
+    currentSalary:0,
+       totalAppliedLayers:[],
     loadIcon:(props)=><HouseOutlinedIcon sx={props}/>
   },
   {
@@ -55,11 +59,11 @@ export const loanDetailsData = [
     ],
     maxAmount: 210_000,
     minAmount: 5000,
-    intrestRates: [
-      { rate: 3.24, max: 400_00 },
-      { rate: 4.0, max: 1600_00 },
-      { rate: 6.0, max: 1500_0 }, 
-      { rate: 10.5, max: 190_000 },
+     intrestRates: [
+      { rate: .325, max: 400_00 },
+      { rate: .04, max: 1600_00 },
+      { rate: .06, max: 1500_0 }, 
+      { rate: .105, max: 190_000 },
     ],
     EMI: 0,
     payPerMonth: 0,
@@ -68,6 +72,11 @@ export const loanDetailsData = [
     interestPayable:0,
     minMonths:12,
     maxMonths:300,
+    totalInterest:0,
+    prevLoanAmount:0,
+    currentSalary:0,
+    hasPrevLoan:false,
+    totalAppliedLayers:[],
     loadIcon:(props)=><HouseOutlinedIcon sx={props}/>
   },
   {
@@ -89,7 +98,7 @@ export const loanDetailsData = [
     maxAmount: 210_000,
     minAmount: 5000,
     intrestRates: [
-      { rate: 3.24, max: 400_00 },
+      { rate: 3.25, max: 400_00 },
       { rate: 4.0, max: 1600_00 },
       { rate: 6.0, max: 1500_0 },
       { rate: 10.5, max: 190_000 },
@@ -101,6 +110,11 @@ export const loanDetailsData = [
     interestPayable:0,
     minMonths:12,
     maxMonths:300,
+    totalInterest:0,
+    prevLoanAmount:0, 
+    currentSalary:0,
+    hasPrevLoan:false,
+    totalAppliedLayers:[],
     loadIcon:(props)=><DirectionsCarFilledOutlinedIcon sx={props}/>
   },
   {
@@ -121,11 +135,11 @@ export const loanDetailsData = [
     ],
     maxAmount: 210_000,
     minAmount: 5000,
-    intrestRates: [
-      { rate: 3.24, max: 400_00 },
-      { rate: 4.0, max: 1600_00 },
-      { rate: 6.0, max: 1500_0 }, 
-      { rate: 10.5, max: 190_000 },
+     intrestRates: [
+      { rate: .325, max: 400_00 },
+      { rate: .04, max: 1600_00 },
+      { rate: .06, max: 1500_0 }, 
+      { rate: .105, max: 190_000 },
     ],
     EMI: 0,
     payPerMonth: 0,
@@ -134,6 +148,11 @@ export const loanDetailsData = [
     interestPayable:0,
     minMonths:12,
     maxMonths:300,
+    totalInterest:0,
+    prevLoanAmount:0,
+    currentSalary:0,
+    hasPrevLoan:false,
+    totalAppliedLayers:[],
     loadIcon:(props)=><HouseOutlinedIcon sx={props}/>
   },
   {
@@ -154,11 +173,11 @@ export const loanDetailsData = [
     ],
     maxAmount: 210_000,
     minAmount: 5000,
-    intrestRates: [
-      { rate: 3.24, max: 400_00 },
-      { rate: 4.0, max: 1600_00 },
-      { rate: 6.0, max: 1500_0 }, 
-      { rate: 10.5, max: 190_000 },
+     intrestRates: [
+      { rate: .325, max: 400_00 },
+      { rate: .04, max: 1600_00 },
+      { rate: .06, max: 1500_0 }, 
+      { rate: .105, max: 190_000 },
     ],
     EMI: 0,
     payPerMonth: 0,
@@ -167,6 +186,11 @@ export const loanDetailsData = [
     interestPayable:0,
     minMonths:12,
     maxMonths:300,
+    totalInterest:0,
+    prevLoanAmount:0,
+    currentSalary:0,
+    hasPrevLoan:false,
+    totalAppliedLayers:[],
     loadIcon:(props)=><LandscapeOutlinedIcon sx={props}/>
   }
 ];
