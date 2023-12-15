@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Checkbox,
   Divider,
   FormControlLabel,
@@ -9,9 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useForm } from "react-hook-form";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-function Documents() {  
+function Documents({handleBack,handleNext}) {  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
+    <form noValidate onSubmit={handleSubmit(handleNext)}>
+
     <Grid container gap={2}  height={'600px'} >
       <Grid item md={12}> 
         <Typography variant="h5" fontWeight="700" color={"gray"}>
@@ -63,11 +72,44 @@ function Documents() {
       </Grid>
       <Grid item md={12}>
         <FormControlLabel
-          control={<Checkbox />}
+          control={<Checkbox  {...register('iScoreApproval',{required:'Kindly approve this field'})} />}
           label="I approve and authorize BDC to perform I-Score investigation and all required investigations to proceed the loan request"
         />
+        {errors.iScoreApproval?.message&&<Typography variant='body2' color={'error'}>{errors.iScoreApproval?.message}</Typography>}
       </Grid>
+      <Grid container item  md={12}>
+          <Grid item md={4}>
+            <Button
+              sx={{ width: "100%" }}
+              onClick={handleBack}
+              variant="outlined"
+            >
+              Cancel
+            </Button>
+          </Grid>
+          <Grid container  item md={8} justifyContent={'flex-end'} gap={2} >
+          <Grid item md={4}>
+            <Button
+              sx={{ width: "100%" }}
+              onClick={handleBack}
+              variant="outlined"
+            >
+              Back
+            </Button>
+          </Grid>
+          <Grid item md={4}>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ backgroundColor: "#215190", width: "100%" }}
+            >
+              Next
+            </Button>
+          </Grid>
+          </Grid>
+        </Grid>
     </Grid>
+    </form>
   );
 }
 
