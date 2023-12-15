@@ -25,7 +25,7 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
   }, []);
   return (
     <form noValidate onSubmit={handleSubmit(handleNext)}>
-    <Grid container gap={4}>
+    <Grid container height={'calc(100vh - 20vh)'} gap={4}>
       <Grid container item gap={4} md={7}>
         <Grid container item gap={1} alignItems={"center"}>
           <Typography variant="h4">My loan</Typography>

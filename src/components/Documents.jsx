@@ -21,7 +21,7 @@ function Documents({handleBack,handleNext}) {
   return (
     <form noValidate onSubmit={handleSubmit(handleNext)}>
 
-    <Grid container gap={2}  height={'600px'} >
+    <Grid container height={'calc(100vh - 20vh)'} maxHeight={'1rem'} gap={2} >
       <Grid item md={12}> 
         <Typography variant="h5" fontWeight="700" color={"gray"}>
           Employee Information{" "}

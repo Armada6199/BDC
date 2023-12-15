@@ -13,7 +13,7 @@ function PersonalInformation({ handleNext ,handleBack}) {
   };
   return (
     <form onSubmit={handleSubmit(handleNext)}>
-      <Grid container gap={4}>
+      <Grid container height={'calc(100vh - 20vh)'} gap={4}>
         <Grid container justifyContent={'space-between'} item spacing={4} >
             <Grid item md={12}>
               <Typography variant="h5" fontWeight="">

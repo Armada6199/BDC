@@ -39,7 +39,13 @@ const loansIconStyle = {
   height: "41px",
   color: "#fff",
 };
-function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handleBack }) {
+function LoanInformation({
+  currentLoan,
+  setCurrentLoan,
+  loans,
+  handleNext,
+  handleBack,
+}) {
   function handleChangeCurrentLoan(title) {
     const targetLoan = loans.find((e) => e.title === title);
     setCurrentLoan(targetLoan);
@@ -53,13 +59,14 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
     defaultValues: {
       loanAmount: null,
       months: null,
-      currentSalary:null,
-  }
+      currentSalary: null,
+    },
   });
   return (
-    <form noValidate onSubmit={handleSubmit(handleNext)}>
-      <Grid container gap={4} >
-        <Grid container alignItems={"center"} item md={8}>
+    <Box height={'calc(100vh - 20vh)'} >
+    <form noValidate  onSubmit={handleSubmit(handleNext)}>
+      <Grid container  gap={4}>
+        <Grid container  alignItems={"center"} item md={8}>
           <Grid container item md={12} gap={4}>
             <Grid item md={6}>
               <Typography variant="h5" fontWeight={"600"}>
@@ -112,7 +119,9 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                     color="secondary"
                     size="medium"
                     step={currentLoan.maxAmount / 100}
-                    {...register("loanAmount", { required: 'Kindly Choose loan amount'})}
+                    {...register("loanAmount", {
+                      required: "Kindly Choose loan amount",
+                    })}
                     onChange={(e) =>
                       setCurrentLoan({
                         ...currentLoan,
@@ -131,9 +140,13 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                       {currentLoan.minAmount} JD
                     </Typography>
                   </Grid>
-                  {errors.loanAmount?.message&&<Grid item md={5}>
-                    <Typography variant="body2" color='error'>{errors.loanAmount.message}</Typography>
-                    </Grid>}
+                  {errors.loanAmount?.message && (
+                    <Grid item md={5}>
+                      <Typography variant="body2" color="error">
+                        {errors.loanAmount.message}
+                      </Typography>
+                    </Grid>
+                  )}
                   <Grid item>
                     <Typography
                       variant="body1"
@@ -161,7 +174,9 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                   color="secondary"
                   size="medium"
                   step={6}
-                  {...register("months", { required: "Kindly Choose How many months" })}
+                  {...register("months", {
+                    required: "Kindly Choose How many months",
+                  })}
                   onChange={(e) =>
                     setCurrentLoan({
                       ...currentLoan,
@@ -180,9 +195,13 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                     {currentLoan.minMonths}
                   </Typography>
                 </Grid>
-                {errors.months?.message&&<Grid item md={5}>
-                    <Typography variant="body2" color='error'>{errors.months.message}</Typography>
-                    </Grid>}
+                {errors.months?.message && (
+                  <Grid item md={5}>
+                    <Typography variant="body2" color="error">
+                      {errors.months.message}
+                    </Typography>
+                  </Grid>
+                )}
                 <Grid item>
                   <Typography
                     variant="body1"
@@ -209,7 +228,9 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                   color="secondary"
                   size="medium"
                   step={50}
-                  {...register("currentSalary", { required: 'Kindly choose your current salary' })}
+                  {...register("currentSalary", {
+                    required: "Kindly choose your current salary",
+                  })}
                   onChange={(e) =>
                     setCurrentLoan({
                       ...currentLoan,
@@ -228,9 +249,13 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                     250 JD
                   </Typography>
                 </Grid>
-                {errors.currentSalary?.message&&<Grid item md={5}>
-                    <Typography variant="body2" color='error'>{errors.currentSalary.message}</Typography>
-                    </Grid>}
+                {errors.currentSalary?.message && (
+                  <Grid item md={5}>
+                    <Typography variant="body2" color="error">
+                      {errors.currentSalary.message}
+                    </Typography>
+                  </Grid>
+                )}
                 <Grid item>
                   <Typography
                     variant="body1"
@@ -244,13 +269,13 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
             </Grid>
           </Grid>
           <Grid container item md={8}>
-            <FormControl error={errors.isCurrentLoan?.message?true:false}>
+            <FormControl error={errors.isCurrentLoan?.message ? true : false}>
               <FormLabel id="demo-radio-buttons-group-label">
                 Do You have an active current Loan from BDC{" "}
               </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={'1'}
+                defaultValue={"1"}
                 name="currentSalary"
                 row
                 onChange={(e) =>
@@ -264,7 +289,9 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                   value={"yes"}
                   control={
                     <Radio
-                    {...register("isCurrentLoan",{ required: 'current Loan amount' } )}
+                      {...register("isCurrentLoan", {
+                        required: "current Loan amount",
+                      })}
                       sx={{
                         color: "#215190",
                         "&.Mui-checked": {
@@ -279,7 +306,9 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                   value={"no"}
                   control={
                     <Radio
-                    {...register("isCurrentLoan",{ required: 'This field is required' } )}
+                      {...register("isCurrentLoan", {
+                        required: "This field is required",
+                      })}
                       sx={{
                         color: "#215190",
                         "&.Mui-checked": {
@@ -309,7 +338,7 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
                     color="secondary"
                     size="medium"
                     step={50}
-                    {...register("currentLoanAmount",{defaultValue:null})}
+                    {...register("currentLoanAmount", { defaultValue: null })}
                     onChange={(e) =>
                       setCurrentLoan({
                         ...currentLoan,
@@ -377,7 +406,7 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
             </Box>
           ))}
         </Grid>
-        <Grid container item  md={12}>
+        <Grid container item md={12}>
           <Grid item md={4}>
             <Button
               sx={{ width: "100%" }}
@@ -387,29 +416,31 @@ function LoanInformation({ currentLoan, setCurrentLoan, loans, handleNext,handle
               Cancel
             </Button>
           </Grid>
-          <Grid container  item md={8} justifyContent={'flex-end'} gap={2} >
-          <Grid item md={4}>
-            <Button
-              sx={{ width: "100%" }}
-              onClick={handleBack}
-              variant="outlined"
-            >
-              Back
-            </Button>
-          </Grid>
-          <Grid item md={4}>
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{ backgroundColor: "#215190", width: "100%" }}
-            >
-              Next
-            </Button>
-          </Grid>
+          <Grid container item md={8} justifyContent={"flex-end"} gap={2}>
+            <Grid item md={4}>
+              <Button
+                sx={{ width: "100%" }}
+                onClick={handleBack}
+                variant="outlined"
+              >
+                Back
+              </Button>
+            </Grid>
+            <Grid item md={4}>
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ backgroundColor: "#215190", width: "100%" }}
+              >
+                Next
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
     </form>
+    </Box>
+
   );
 }
 

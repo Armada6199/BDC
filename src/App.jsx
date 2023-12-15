@@ -5,7 +5,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Grid,TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import StepperComponentsHOC from "./components/StepperComponentsHOC.jsx";
 import { loanDetailsData } from "./assets/loans.jsx";
 import { useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ export default function HorizontalLinearStepper() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm(); 
+  } = useForm();
 
   // const isStepSkipped = (step) => {
   //   return skipped.has(step);
@@ -34,30 +34,26 @@ export default function HorizontalLinearStepper() {
 
   const handleNext = (data) => {
     let newSkipped = skipped;
-      if(activeStep!==steps.length-1){
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-        console.log(data)
-
-      }else {
-        console.log(data)
-      }
-
-
+    if (activeStep !== steps.length - 1) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setSkipped(newSkipped);
+      console.log(data);
+    } else {
+      console.log(data);
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-
   const handleReset = () => {
     setActiveStep(0);
   };
 
   return (
-    <Grid container gap={2} bgcolor={"#F1F3F4"}>
-      <Grid container item md={12} p={4} gap={4}>
+    <Grid container gap={2} height={'100vh'} maxHeight='100vh' bgcolor={"#F1F3F4"}>
+      <Grid container item md={12} height={'20vh'} p={4} gap={4}>
         <Typography variant="h4">Apply Loan</Typography>
         <Grid item md={12} sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -100,18 +96,17 @@ export default function HorizontalLinearStepper() {
           </Stepper>
         </Grid>
       </Grid>
-        <Grid container item p={4} gap={4} bgcolor={"#fff"}>
-          <StepperComponentsHOC
-            currentLoan={currentLoan}
-            loans={loans}
-            setCurrentLoan={setCurrentLoan}
-            activeStep={activeStep}
-            register={register}
-            handleNext={handleNext}
-            handleBack={handleBack}
-          />
-        
-        </Grid>
-        </Grid>
+      <Grid  item p={4} gap={4} height={'calc(100vh - 20vh)'}  bgcolor={"#fff"}>
+        <StepperComponentsHOC
+          currentLoan={currentLoan}
+          loans={loans}
+          setCurrentLoan={setCurrentLoan}
+          activeStep={activeStep}
+          register={register}
+          handleNext={handleNext}
+          handleBack={handleBack}
+        />
+      </Grid>
+    </Grid>
   );
 }
