@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { glassmorphismStyle } from "../assets/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useForm } from "react-hook-form";
+import calculateEMI from "../utils/utils";
 
 const loanTypesBoxesStyle = {
   height: "139px",
@@ -58,15 +59,36 @@ function LoanInformation({
   } = useForm({
     defaultValues: {
       loanAmount: null,
-      months: null,
+      numberOfMonths: null,
       currentSalary: null,
+      currentLoanAmount: null,
     },
   });
+  function handleCalculateLoan() {
+    const {loanAmount,intrestRates,currentLoanAmount}=currentLoan;
+    const { totalAmount, totalInterests, totalInterestLayers } = calculateEMI(loanAmount+currentLoanAmount,intrestRates);
+    setCurrentLoan((prev) => ({
+      ...prev,
+      EMI: totalAmount,
+      interestPayable: totalInterests,
+      payPerMonth: totalAmount / currentLoan.numberOfMonths,
+      totalAppliedLayers: totalInterestLayers,
+    }));
+  }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentLoan((prev) => ({ ...prev, [name]: value }));
+    handleCalculateLoan();
+  };
+  const validateGreaterThanSalary=()=>{
+  if(currentLoan.payPerMonth>currentLoan.currentSalary/2){
+    return 'Monthly payment can\'t be more than half of your salary'
+  }else return true
+  }
   return (
-    <Box height={'calc(100vh - 20vh)'} >
-    <form noValidate  onSubmit={handleSubmit(handleNext)}>
-      <Grid container  gap={4}>
-        <Grid container  alignItems={"center"} item md={8}>
+    <form noValidate onSubmit={handleSubmit(handleNext)}>
+      <Grid container spacing={4}>
+        <Grid container alignItems={"center"} item md={8}>
           <Grid container item md={12} gap={4}>
             <Grid item md={6}>
               <Typography variant="h5" fontWeight={"600"}>
@@ -118,16 +140,12 @@ function LoanInformation({
                     valueLabelDisplay="auto"
                     color="secondary"
                     size="medium"
+                    name="loanAmount"
                     step={currentLoan.maxAmount / 100}
                     {...register("loanAmount", {
                       required: "Kindly Choose loan amount",
                     })}
-                    onChange={(e) =>
-                      setCurrentLoan({
-                        ...currentLoan,
-                        loanAmount: e.target.value,
-                      })
-                    }
+                    onChange={handleInputChange}
                   />
                 </Grid>
                 <Grid container item justifyContent={"space-between"}>
@@ -173,16 +191,13 @@ function LoanInformation({
                   valueLabelDisplay="auto"
                   color="secondary"
                   size="medium"
+                  name="numberOfMonths"
                   step={6}
-                  {...register("months", {
+                  {...register("numberOfMonths", {
                     required: "Kindly Choose How many months",
+                    validate: validateGreaterThanSalary
                   })}
-                  onChange={(e) =>
-                    setCurrentLoan({
-                      ...currentLoan,
-                      numberOfMonths: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid container item justifyContent={"space-between"}>
@@ -195,10 +210,10 @@ function LoanInformation({
                     {currentLoan.minMonths}
                   </Typography>
                 </Grid>
-                {errors.months?.message && (
+                {errors.numberOfMonths?.message && (
                   <Grid item md={5}>
                     <Typography variant="body2" color="error">
-                      {errors.months.message}
+                      {errors.numberOfMonths.message}
                     </Typography>
                   </Grid>
                 )}
@@ -228,15 +243,11 @@ function LoanInformation({
                   color="secondary"
                   size="medium"
                   step={50}
+                  name="currentSalary"
                   {...register("currentSalary", {
                     required: "Kindly choose your current salary",
                   })}
-                  onChange={(e) =>
-                    setCurrentLoan({
-                      ...currentLoan,
-                      currentSalary: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid container item justifyContent={"space-between"}>
@@ -337,14 +348,10 @@ function LoanInformation({
                     valueLabelDisplay="auto"
                     color="secondary"
                     size="medium"
+                    name="prevLoanAmount"
                     step={50}
-                    {...register("currentLoanAmount", { defaultValue: null })}
-                    onChange={(e) =>
-                      setCurrentLoan({
-                        ...currentLoan,
-                        currentSalary: e.target.value,
-                      })
-                    }
+                    {...register("currentLoanAmount")}
+                    onChange={handleInputChange}
                   />
                 </Grid>
                 <Grid container item justifyContent={"space-between"}>
@@ -439,8 +446,6 @@ function LoanInformation({
         </Grid>
       </Grid>
     </form>
-    </Box>
-
   );
 }
 

@@ -52,8 +52,8 @@ export default function HorizontalLinearStepper() {
   };
 
   return (
-    <Grid container gap={2} height={'100vh'} maxHeight='100vh' bgcolor={"#F1F3F4"}>
-      <Grid container item md={12} height={'20vh'} p={4} gap={4}>
+    <Grid container gap={2} height={'100vh'}   bgcolor={"#F1F3F4"}>
+      <Grid container item md={12}  p={4} gap={4}>
         <Typography variant="h4">Apply Loan</Typography>
         <Grid item md={12} sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -96,7 +96,7 @@ export default function HorizontalLinearStepper() {
           </Stepper>
         </Grid>
       </Grid>
-      <Grid  item p={4} gap={4} height={'calc(100vh - 20vh)'}  bgcolor={"#fff"}>
+      <Grid  item p={4}    bgcolor={"#fff"}>
         <StepperComponentsHOC
           currentLoan={currentLoan}
           loans={loans}

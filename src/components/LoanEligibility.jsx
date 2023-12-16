@@ -12,20 +12,10 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
     handleSubmit,
     formState: { errors },
   } = useForm();
-  useEffect(() => {
-   const {totalAmount,totalInterests,totalInterestLayers}=calculateEMI(currentLoan.loanAmount,currentLoan.intrestRates);
-   
-   setCurrentLoan({
-      ...currentLoan,
-      EMI: totalAmount,
-      interestPayable: totalInterests,
-      payPerMonth: totalAmount / currentLoan.numberOfMonths,
-      totalAppliedLayers:totalInterestLayers
-    });
-  }, []);
+ console.log(currentLoan)
   return (
     <form noValidate onSubmit={handleSubmit(handleNext)}>
-    <Grid container height={'calc(100vh - 20vh)'} gap={4}>
+    <Grid container   gap={4}>
       <Grid container item gap={4} md={7}>
         <Grid container item gap={1} alignItems={"center"}>
           <Typography variant="h4">My loan</Typography>
