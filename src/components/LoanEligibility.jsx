@@ -32,7 +32,7 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
             borderTop: "1px solid darkgray",
             borderBottom: "1px solid darkgray",
           }}
-          alignItems={"center"}
+          alignItems={"center"} 
           item
           md={11}
           gap={2}

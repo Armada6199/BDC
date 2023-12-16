@@ -64,7 +64,7 @@ function LoanInformation({
       currentLoanAmount: null,
     },
   });
-  function handleCalculateLoan() {
+   function handleCalculateLoan() {
     const {loanAmount,intrestRates,currentLoanAmount}=currentLoan;
     const { totalAmount, totalInterests, totalInterestLayers } = calculateEMI(loanAmount+currentLoanAmount,intrestRates);
     setCurrentLoan((prev) => ({
@@ -450,3 +450,4 @@ function LoanInformation({
 }
 
 export default LoanInformation;
+
