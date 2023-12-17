@@ -1,7 +1,7 @@
 import   calculateEMI from '../utils/utils' 
 describe('calculateEMI', () => {
   const rates = [
-    { rate: .325, max: 400_00 },
+    { rate: .0325, max: 400_00 },
     { rate: .04, max: 1600_00 },
     { rate: .06, max: 1500_0 }, 
     { rate: .105, max: 190_000 },

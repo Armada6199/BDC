@@ -12,17 +12,15 @@ import {
 import React from "react";
 import { useForm } from "react-hook-form";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-function Documents({handleBack,handleNext}) {  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+function Documents({ handleBack, handleNext, register, errors }) {
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
   return (
-    <form noValidate onSubmit={handleSubmit(handleNext)}>
-
-    <Grid container height={'calc(100vh - 20vh)'} maxHeight={'1rem'} gap={2} >
-      <Grid item md={12}> 
+    <Grid container minHeight={"70vh"} maxHeight={"1rem"} gap={2}>
+      <Grid item md={12}>
         <Typography variant="h5" fontWeight="700" color={"gray"}>
           Employee Information{" "}
         </Typography>
@@ -72,22 +70,32 @@ function Documents({handleBack,handleNext}) {
       </Grid>
       <Grid item md={12}>
         <FormControlLabel
-          control={<Checkbox  {...register('iScoreApproval',{required:'Kindly approve this field'})} />}
+          control={
+            <Checkbox
+              {...register("iScoreApproval", {
+                required: "Kindly approve this field",
+              })}
+            />
+          }
           label="I approve and authorize BDC to perform I-Score investigation and all required investigations to proceed the loan request"
         />
-        {errors.iScoreApproval?.message&&<Typography variant='body2' color={'error'}>{errors.iScoreApproval?.message}</Typography>}
+        {errors.iScoreApproval?.message && (
+          <Typography variant="body2" color={"error"}>
+            {errors.iScoreApproval?.message}
+          </Typography>
+        )}
       </Grid>
-      <Grid container item  md={12}>
-          <Grid item md={4}>
-            <Button
-              sx={{ width: "100%" }}
-              onClick={handleBack}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
-          </Grid>
-          <Grid container  item md={8} justifyContent={'flex-end'} gap={2} >
+      <Grid container item md={12}>
+        <Grid item md={4}>
+          <Button
+            sx={{ width: "100%" }}
+            onClick={handleBack}
+            variant="outlined"
+          >
+            Cancel
+          </Button>
+        </Grid>
+        <Grid container item md={8} justifyContent={"flex-end"} gap={2}>
           <Grid item md={4}>
             <Button
               sx={{ width: "100%" }}
@@ -106,10 +114,9 @@ function Documents({handleBack,handleNext}) {
               Next
             </Button>
           </Grid>
-          </Grid>
         </Grid>
+      </Grid>
     </Grid>
-    </form>
   );
 }
 

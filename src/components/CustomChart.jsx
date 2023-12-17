@@ -9,6 +9,9 @@ export default function CustomChart({layers,totalAppliedLayers}) {
   const appliedInterests=totalAppliedLayers.map(ele=>{
     return ele.totalApplied;
   })
+  layers=layers=layers.map(ele=>{
+    return ele.title;
+  })
   const data = {
     labels: layers,
     datasets: [

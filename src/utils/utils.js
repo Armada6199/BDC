@@ -1,22 +1,29 @@
-export default function calculateEMI(loanAmount, rates) {
+export default function calculateEMI(loanAmount, rates, numberOfMonths) {
   let totalInterests = 0;
   let totalAmount = loanAmount;
   const totalInterestLayers = [];
   for (let i = 0; i < rates.length; i++) {
     if (loanAmount > 0) {
       if (loanAmount > rates[i].max) {
-        if (loanAmount - rates[i].max > 5000) {
-          totalInterests += rates[i].max * rates[i].rate;
-          totalInterestLayers.push({totalApplied:(rates[i].max * rates[i].rate)})
+        if (loanAmount - rates[i].max > rates[i].min) {
+          const layerInterest=(( rates[i].max * rates[i].rate)/12)*numberOfMonths;
+          totalInterests += layerInterest;
+          totalInterestLayers.push({
+            totalApplied: layerInterest,
+          });
           loanAmount -= rates[i].max;
         } else {
-          totalInterests += (loanAmount - 5000) * rates[i].rate;
-          totalInterestLayers.push({totalApplied:(loanAmount-5000)*rates[i].rate})
-          loanAmount = 5000;
+          const layerInterest=(((loanAmount - rates[i].min) * rates[i].rate)/12)*numberOfMonths
+          totalInterests += layerInterest;
+          totalInterestLayers.push({
+            totalApplied: layerInterest,
+          });
+          loanAmount = rates[i].min;
         }
       } else {
-        totalInterests = totalInterests + (loanAmount * rates[i].rate);
-        totalInterestLayers.push({totalApplied:(loanAmount * rates[i].rate)})
+        const layerInterest=((loanAmount * rates[i].rate)/12)*numberOfMonths;
+        totalInterests +=  layerInterest;
+        totalInterestLayers.push({ totalApplied: layerInterest });
         loanAmount -= rates[i].max;
       }
     }
@@ -25,8 +32,3 @@ export default function calculateEMI(loanAmount, rates) {
   totalAmount += totalInterests;
   return { totalAmount, totalInterests, totalInterestLayers };
 }
-// if (rates[i].max >= loanAmount) {
-
-// } else {
-
-// }

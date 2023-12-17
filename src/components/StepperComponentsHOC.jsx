@@ -11,6 +11,9 @@ function StepperComponentsHOC({
   loans,
   handleNext,
   handleBack,
+  register,
+  errors,
+  setValue
 }) {
   switch (activeStep) {
     case 0:
@@ -21,6 +24,9 @@ function StepperComponentsHOC({
           loans={loans}
           setCurrentLoan={setCurrentLoan}
           handleBack={handleBack}
+          register={register}
+          errors={errors}
+          setValue={setValue}
         />
       );
     case 1:
@@ -30,6 +36,7 @@ function StepperComponentsHOC({
           handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
           handleBack={handleBack}
+          register={register}
         />
       );
     case 2:
@@ -39,6 +46,8 @@ function StepperComponentsHOC({
           handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
           handleBack={handleBack}
+          register={register}
+          errors={errors}
         />
       );
     case 3:
@@ -48,6 +57,8 @@ function StepperComponentsHOC({
           handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
           handleBack={handleBack}
+          register={register}
+          errors={errors}
         />
       );
   }
