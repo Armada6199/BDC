@@ -4,25 +4,31 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip);
 
-export const data = {
-  labels: ['EMI Amount','Interest Payable'],
-  datasets: [
-    {
-      label: 'EMI & Interest',
-      data: [70,30],
-      backgroundColor: [
-        '#215190',
-        '#C4B28F',
-      ],
-      borderColor: [
-        '#215190',
-        '#C4B28F',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
 
-export default function CustomChart() {
+export default function CustomChart({layers,totalAppliedLayers}) {
+  const appliedInterests=totalAppliedLayers.map(ele=>{
+    return ele.totalApplied;
+  })
+  const data = {
+    labels: layers,
+    datasets: [
+      {
+        label: 'Interests',
+        data: appliedInterests,
+        backgroundColor: [
+          '#215190',
+          '#C4B28F',
+          '#637E76'
+        ],
+        borderColor: [
+          '#215190',
+          '#C4B28F',
+          '#637E76'
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+  
   return <Doughnut data={data} />;
 }

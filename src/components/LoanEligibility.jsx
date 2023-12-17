@@ -12,7 +12,7 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
     handleSubmit,
     formState: { errors },
   } = useForm();
- console.log(currentLoan)
+  const layers=['First Layer','Second Layer ','Third Layer ','Forth  Layer']
   return (
     <form noValidate onSubmit={handleSubmit(handleNext)}>
     <Grid container   gap={4}>
@@ -69,79 +69,22 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
         {/* privileges and terms  */}
        
       <Grid container item md={11}>
-      {currentLoan.totalAppliedLayers.map(layer=>(
-          <Grid container item md={3}>
+      {layers.map((layer,index)=>(
+          <Grid key={layer} container item md={3}>
           <Grid item>
           <Box display={'flex'} gap={1}>
-          <Typography>First Layer</Typography>
+          <Typography>{layer}</Typography>
           <InfoIcon sx={{color:"#C4B28F"}}/>
           </Box>
           </Grid>
             <Grid item>
             <Box display={'flex'} gap={1}>
-          <Typography>Total Applied</Typography>
-          <Typography>{layer.totalApplied}</Typography>
+          <Typography>Total Interests</Typography>
+          <Typography>{currentLoan.totalAppliedLayers[index]?.totalApplied||'0'} JD</Typography>
           </Box>
             </Grid>
         </Grid>
           ))}
-          {/* <Grid container item md={3}>
-            {console.log(currentLoan.totalAppliedLayers[0])}
-            <Grid item>
-            <Box display={'flex'} gap={1}>
-            <Typography>First Layer</Typography>
-            <InfoIcon sx={{color:"#C4B28F"}}/>
-            </Box>
-            </Grid>
-              <Grid item>
-              <Box display={'flex'} gap={1}>
-            <Typography>Total Applied</Typography>
-            <Typography>{currentLoan.totalAppliedLayers[0].totalApplied}</Typography>
-            </Box>
-              </Grid>
-          </Grid>
-          <Grid container item md={3}>
-            <Grid item>
-            <Box display={'flex'} gap={1}>
-            <Typography>Second Layer</Typography>
-            <InfoIcon sx={{color:"#C4B28F"}}/>
-            </Box>
-            </Grid>
-            <Grid item >
-            <Box display={'flex'} gap={1}>
-            <Typography>Total Applied</Typography>
-            <Typography>{currentLoan.totalAppliedLayers[1].totalApplied}</Typography>
-            </Box>
-            </Grid>
-          </Grid>
-          <Grid container item md={3}>
-            <Grid item >
-            <Box display={'flex'} gap={1}>
-            <Typography>Third Layer</Typography>
-            <InfoIcon sx={{color:"#C4B28F"}}/>
-            </Box>
-            </Grid>
-              <Grid item>
-              <Box display={'flex'} gap={1}>
-            <Typography>Total Applied</Typography>
-            <Typography>{currentLoan.totalAppliedLayers[2].totalApplied}</Typography>
-            </Box>
-              </Grid>
-          </Grid>
-          <Grid container item md={3} >
-            <Grid item >
-            <Box display={'flex'} gap={1}>
-            <Typography>Forth Layer</Typography>
-            <InfoIcon sx={{color:"#C4B28F"}} />
-            </Box>
-            </Grid>
-              <Grid>
-              <Box display={'flex'} gap={1}>
-            <Typography>Total Applied</Typography>
-            <Typography>{currentLoan.totalAppliedLayers[3].totalApplied}</Typography>
-            </Box>
-              </Grid>
-          </Grid> */}
         </Grid>
       </Grid>
       <Grid
@@ -162,8 +105,8 @@ function LoanEligibility({ currentLoan, setCurrentLoan,handleNext,handleBack }) 
           gap={4}
           flexDirection={"column"}
         >
-          <Box>
-            <CustomChart />
+          <Box> 
+            <CustomChart layers={layers} totalAppliedLayers={currentLoan.totalAppliedLayers} />
           </Box>
           <Grid container justifyContent={"center"} item gap={1} md={12}>
             <Grid item md={5}>
