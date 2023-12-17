@@ -40,17 +40,23 @@ const loansIconStyle = {
   height: "41px",
   color: "#fff",
 };
-const styles = {
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    width: 300,
-    margin: 100,
-  },
-  resize: {
-    fontSize: 500,
+const loanInfoInputStyle = {
+  alignSelf: "flex-end",
+  width: "100%",
+  ...glassmorphismStyle,
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "none",
+      border: "none",
+    },
+    "&:hover fieldset": {
+      borderColor: "none",
+      border: "none",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "none",
+      border: "none",
+    },
   },
 };
 function LoanInformation({
@@ -61,13 +67,13 @@ function LoanInformation({
   handleBack,
   register,
   errors,
-  setValue
+  setValue,
 }) {
   function handleChangeCurrentLoan(title) {
     const targetLoan = loans.find((e) => e.title === title);
     setCurrentLoan(targetLoan);
   }
-  
+
   // const {
   //   register,
   //   handleSubmit,
@@ -84,16 +90,16 @@ function LoanInformation({
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setValue(name,value);
-    name=name.split('_')[0]
+    setValue(name, value);
+    name = name.split("_")[0];
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
   };
-  const handleInputFieldChange=(e)=>{
-    let {name,value}=e.target;
-    setValue(name,value)
-    name=name.split('_')[0]
+  const handleInputFieldChange = (e) => {
+    let { name, value } = e.target;
+    setValue(name, value);
+    name = name.split("_")[0];
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
-  }
+  };
   const validateGreaterThanSalary = () => {
     if (currentLoan.payPerMonth > currentLoan.currentSalary / 2) {
       return "Monthly payment can't be more than half of your salary";
@@ -144,14 +150,10 @@ function LoanInformation({
             <Typography variant="h5">I want to borrow:</Typography>
           </Grid>
           <Grid container item md={12}>
-            <Grid container justifyContent={'flex-end'} item md={10}>
-            <Grid item md={4}>
+            <Grid container justifyContent={"flex-end"} item md={10}>
+              <Grid item md={4}>
                 <TextField
-                  sx={{
-                    alignSelf: "flex-end",
-                    width: "100%",
-                    ...glassmorphismStyle,
-                  }}
+                  sx={loanInfoInputStyle}
                   id="loanAmountInput"
                   InputProps={{
                     startAdornment: (
@@ -159,12 +161,13 @@ function LoanInformation({
                         <EditIcon sx={{ color: "#C4B28F" }} />
                       </InputAdornment>
                     ),
+
                     value: currentLoan.loanAmount,
                   }}
-                  {...register('loanAmount_Input')}
-                  onChange={(e) =>handleInputFieldChange(e)}
+                  {...register("loanAmount_Input")}
+                  onChange={(e) => handleInputFieldChange(e)}
                   type="number"
-                  variant="standard"
+                  variant="outlined"
                 />
               </Grid>
               <Grid item md={12}>
@@ -180,7 +183,9 @@ function LoanInformation({
                     required: "Kindly Choose loan amount",
                     onChange: (e) => handleInputChange(e),
                   })}
-                  value={currentLoan.loanAmount?currentLoan.loanAmount:210000/2}
+                  value={
+                    currentLoan.loanAmount ? currentLoan.loanAmount : 210000 / 2
+                  }
                 />
               </Grid>
               <Grid container item justifyContent={"space-between"}>
@@ -221,14 +226,7 @@ function LoanInformation({
             <Grid container item gap={1} justifyContent={"flex-end"} md={12}>
               <Grid item md={4}>
                 <TextField
-                  sx={{
-                    alignSelf: "flex-end",
-                    width: "100%",
-                    ...glassmorphismStyle,
-                    '&.Mui-focused fieldset': {
-                      borderColor: 'yellow',
-                    },
-                  }}
+                  sx={loanInfoInputStyle}
                   id="numberOfMonthsInput"
                   InputProps={{
                     startAdornment: (
@@ -247,7 +245,7 @@ function LoanInformation({
                   inputProps={{
                     min: currentLoan.minMonths,
                     max: currentLoan.maxMonths,
-                    defaultValue:currentLoan.maxMonths/2
+                    defaultValue: currentLoan.maxMonths / 2,
                   }}
                   value={currentLoan.numberOfMonths}
                   variant="outlined"
@@ -261,7 +259,11 @@ function LoanInformation({
                   color="secondary"
                   size="medium"
                   step={6}
-                  value={currentLoan.numberOfMonths?currentLoan.numberOfMonths:150}
+                  value={
+                    currentLoan.numberOfMonths
+                      ? currentLoan.numberOfMonths
+                      : 150
+                  }
                   {...register("numberOfMonths_Slider", {
                     required: "Kindly Choose How many months",
                     onChange: (e) => handleInputChange(e),
@@ -303,36 +305,31 @@ function LoanInformation({
           <Grid item md={10}>
             <Typography variant="h5">Current Salary:</Typography>
           </Grid>
-          <Grid container justifyContent={'flex-end'} item md={10}>
-          <Grid item md={4}>
-                <TextField
-                  sx={{
-                    alignSelf: "flex-end",
-                    width: "100%",
-                    height:'60px',
-                    ...glassmorphismStyle,
-                  }}
-                  id="currentSalaryInput"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <EditIcon sx={{ color: "#C4B28F" }} />
-                      </InputAdornment>
-                    ),
-                  }}
-                  {...register("currentSalary_Input", {
-                    onChange: (e) => handleInputFieldChange(e),
-                  })}
-                  type="number"
-                  step={50}
-                  inputProps={{
-                    min: 250,
-                    max: 100_00,
-                  }}
-                  value={currentLoan.currentSalary}
-                  variant="standard"
-                />
-              </Grid>
+          <Grid container justifyContent={"flex-end"} item md={10}>
+            <Grid item md={4}>
+              <TextField
+                sx={loanInfoInputStyle}
+                id="currentSalaryInput"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EditIcon sx={{ color: "#C4B28F" }} />
+                    </InputAdornment>
+                  ),
+                }}
+                {...register("currentSalary_Input", {
+                  onChange: (e) => handleInputFieldChange(e),
+                })}
+                type="number"
+                step={50}
+                inputProps={{
+                  min: 250,
+                  max: 100_00,
+                }}
+                value={currentLoan.currentSalary}
+                variant="outlined"
+              />
+            </Grid>
             <Grid item md={12}>
               <Slider
                 min={250}
@@ -345,7 +342,11 @@ function LoanInformation({
                   required: "Kindly choose your current salary",
                   onChange: (e) => handleInputChange(e),
                 })}
-                value={currentLoan.currentSalary?currentLoan.currentSalary:10000/2}
+                value={
+                  currentLoan.currentSalary
+                    ? currentLoan.currentSalary
+                    : 10000 / 2
+                }
                 // onChange={handleInputChange}
               />
             </Grid>
