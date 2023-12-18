@@ -57,6 +57,8 @@ function ActiveLoanForm({
             <MenuItem value={"home"}>Home Loan</MenuItem>
             <MenuItem value={"land"}>Land Loan</MenuItem>
             <MenuItem value={"car"}>Car Loan</MenuItem>
+            <MenuItem value={"personal"}>Personal</MenuItem>
+            <MenuItem value={"Housing Loan  with SLC"}>Housing Loan  with SLC</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -110,8 +112,8 @@ function ActiveLoanForm({
         </Grid>
       )}
       {activeLoan.activeLoanLayer && (
-        <Grid container item md={3} justifyContent={"flex-start"} gap={2}>
-          <Grid item sx={{ cursor: "pointer" }} md={2}>
+        <Grid container item >
+          <Grid item sx={{ cursor: "pointer" }} md={12}>
             <Box
               sx={{
                 display: "flex",
@@ -125,11 +127,13 @@ function ActiveLoanForm({
               }}
               onClick={() => handleAddNewLoan()}
             >
-              <AddIcon sx={{ fontSize: 48, color: "#C4B28F" }} />
+              <AddIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
             </Box>
           </Grid>
+        </Grid>
+      )}
           {index > 0 && (
-            <Grid item sx={{ cursor: "pointer" }} md={2}>
+            <Grid item sx={{ cursor: "pointer" }} md={1}>
               <Box
                 sx={{
                   display: "flex",
@@ -143,12 +147,10 @@ function ActiveLoanForm({
                 }}
                 onClick={() => handleDeleteActiveLoan()}
               >
-                <DeleteIcon sx={{ fontSize: 48, color: "#C4B28F" }} />
+                <DeleteIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
               </Box>
             </Grid>
           )}
-        </Grid>
-      )}
     </Grid>
   );
 }

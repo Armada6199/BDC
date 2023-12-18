@@ -6,11 +6,10 @@ import {
   Button,
   Collapse,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomChart from "./CustomChart";
 import { glassmorphismStyle } from "../assets/styles";
-import calculateEMI from "../utils/utils";
 import { useForm } from "react-hook-form";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
@@ -20,28 +19,7 @@ function LoanEligibility({
   handleNext,
   handleBack,
 }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-  //remove after styling
-  // useEffect(() => {
-  //   setCurrentLoan((prev) => ({
-  //     ...prev,
-  //     totalAppliedLayers: [
-  //       {    title: "First Layer",
-  //       interestRate: 0.0325,
-  //       totalApplied: 14200,},
-  //       {    title: "Second Layer",
-  //       interestRate: 0.0325,
-  //       totalApplied: 14200,},
-  //       {    title: "Third Layer",
-  //       interestRate: 0.0325,
-  //       totalApplied: 14200,},
-  //     ],
-  //   }));
-  // }, []);
+
   const [openStagesCollapse, setopenStagesCollapse] = useState({
     0: false,
     1: false,
@@ -49,7 +27,6 @@ function LoanEligibility({
     3: false,
   });
   return (
-    <form noValidate onSubmit={handleSubmit(handleNext)}>
       <Grid container gap={4}>
         <Grid container item gap={4} md={7}>
           <Grid container item gap={1} alignItems={"center"}>
@@ -144,26 +121,6 @@ function LoanEligibility({
                 <Grid item md={4} >
                 <Typography variant="h5" fontWeight={'500'}>{layer.title}</Typography>
                 </Grid>
-                {/* <Grid container justifyContent={'space-between'} item md={6}>
-              <Grid item md={6}>
-                <Typography
-                  variant="body1"
-                  fontWeight={"bold"}
-                  color={"darkgray"}
-                >
-                 Minimum Amount {layer.min}
-                </Typography>
-              </Grid>
-              <Grid item md={6}>
-                <Typography
-                  variant="body1"
-                  fontWeight={"bold"}
-                  color={"darkgray"}
-                >
-               Max Amount  {layer.max}
-                </Typography>
-              </Grid>
-            </Grid> */}
               </Grid>
               <Collapse
                 in={openStagesCollapse[index]}
@@ -184,6 +141,7 @@ function LoanEligibility({
                         variant="h5"
                         fontWeight={"600"}
                         textAlign={"center"}
+                        color={'secondary'}
                       >
                         {layer.totalApplied}
                       </Typography>
@@ -277,39 +235,8 @@ function LoanEligibility({
             </Grid>
           </Box>
         </Grid>
-        <Grid container item md={12}>
-          <Grid item md={4}>
-            <Button
-              sx={{ width: "100%" }}
-              onClick={handleBack}
-              variant="outlined"
-            >
-              Cancel
-            </Button>
-          </Grid>
-          <Grid container item md={8} justifyContent={"flex-end"} gap={2}>
-            <Grid item md={4}>
-              <Button
-                sx={{ width: "100%" }}
-                onClick={handleBack}
-                variant="outlined"
-              >
-                Back
-              </Button>
-            </Grid>
-            <Grid item md={4}>
-              <Button
-                variant="contained"
-                type="submit"
-                sx={{ backgroundColor: "#215190", width: "100%" }}
-              >
-                Next
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
       </Grid>
-    </form>
+    
   );
 }
 

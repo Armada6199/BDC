@@ -13,24 +13,21 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import {
-  glassmorphismStyle,
   loanInfoInputStyle,
   loansIconStyle,
   loanIconContStyle,
   loanTypesBoxesStyle,
+  glassmorphismStyle,
 } from "../assets/styles";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import ActiveLoanForm from "./ActiveLoanForm";
+import LoanDetails from "./LoanDetails";
 function LoanInformation({
   currentLoan,
   setCurrentLoan,
   loans,
-  handleNext,
-  handleBack,
   register,
   errors,
   setValue,
@@ -39,7 +36,6 @@ function LoanInformation({
     const targetLoan = loans.find((e) => e.title === title);
     setCurrentLoan(targetLoan);
   }
-
   const handleSliderChange = (e) => {
     let { name, value } = e.target;
     setValue(name, value);
@@ -58,8 +54,8 @@ function LoanInformation({
     } else return true;
   };
   return (
-    <Grid container minHeight={"70vh"} spacing={4}>
-      <Grid container alignItems={"center"} item md={8} gap={1}>
+    <Grid container  spacing={4}>
+      <Grid container alignItems={"center"} item md={8} gap={4}>
         <Grid container item md={12} gap={4}>
           <Grid item md={6}>
             <Typography variant="h5" fontWeight={"600"}>
@@ -98,11 +94,11 @@ function LoanInformation({
           </Grid>
         </Grid>
         <Grid container item md={8}>
-          <Grid item md={12}>
-            <Typography variant="h5">I want to borrow:</Typography>
-          </Grid>
           <Grid container item md={12}>
-            <Grid container justifyContent={"flex-end"} item md={10}>
+            <Grid container justifyContent={"space-between"} item md={10}>
+            <Grid item md={6}>
+            <Typography fontWeight={'600'}  variant="h5">I want to borrow:</Typography>
+          </Grid>
               <Grid item md={4}>
                 <TextField
                   sx={loanInfoInputStyle}
@@ -171,11 +167,11 @@ function LoanInformation({
           </Grid>
         </Grid>
         <Grid container item md={8}>
-          <Grid item md={12}>
-            <Typography variant="h5">For so long:</Typography>
-          </Grid>
           <Grid container item md={10}>
-            <Grid container item gap={1} justifyContent={"flex-end"} md={12}>
+            <Grid container item gap={1} justifyContent={"space-between"} md={12}>
+            <Grid item md={6}>
+            <Typography variant="h5" fontWeight={'600'}>For so long:</Typography>
+          </Grid>
               <Grid item md={4}>
                 <TextField
                   sx={loanInfoInputStyle}
@@ -198,7 +194,6 @@ function LoanInformation({
                   inputProps={{
                     min: currentLoan.minMonths,
                     max: currentLoan.maxMonths,
-                    defaultValue: currentLoan.maxMonths / 2,
                   }}
                   value={currentLoan.numberOfMonths}
                   variant="outlined"
@@ -255,10 +250,10 @@ function LoanInformation({
           </Grid>
         </Grid>
         <Grid container item md={8}>
-          <Grid item md={10}>
-            <Typography variant="h5">Current Salary:</Typography>
+          <Grid container justifyContent={"space-between"} item md={10}>
+          <Grid item md={6}>
+            <Typography variant="h5" fontWeight={'600'}>Current Salary:</Typography>
           </Grid>
-          <Grid container justifyContent={"flex-end"} item md={10}>
             <Grid item md={4}>
               <TextField
                 sx={loanInfoInputStyle}
@@ -387,7 +382,7 @@ function LoanInformation({
           </FormControl>
         </Grid>
         {currentLoan.hasPrevLoan && (
-          <Grid container minHeight={"100px"} gap={4} item md={12}>
+          <Grid container minHeight={"150px"} gap={4} item md={12}>
             {currentLoan.activeLoans.map((activeLoan,index) => (
               <ActiveLoanForm
               key={index}
@@ -401,71 +396,8 @@ function LoanInformation({
           </Grid>
         )}
       </Grid>
-      <Grid
-        container
-        sx={glassmorphismStyle}
-        padding={4}
-        direction={"column"}
-        gap={2}
-        item
-        md={3}
-      >
-        <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
-          {currentLoan.title}
-        </Typography>
-        <Typography variant="body2" fontWeight={"500"}>
-          {currentLoan.description}
-        </Typography>
-        <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
-          Privileges
-        </Typography>
-        {currentLoan.privileges.map((priv) => (
-          <Box key={priv} display={"flex"} gap={1}>
-            <CheckCircleIcon color="secondary" />
-            <Typography>{priv}</Typography>
-          </Box>
-        ))}
-        <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
-          {" "}
-          Terms and Conditions
-        </Typography>
-        {currentLoan.termsAndConditions.map((term) => (
-          <Box display={"flex"} key={term} gap={1}>
-            <CheckCircleIcon color="secondary" />
-            <Typography>{term}</Typography>
-          </Box>
-        ))}
-      </Grid>
-      <Grid container item md={12}>
-        <Grid item md={4}>
-          <Button
-            sx={{ width: "100%" }}
-            onClick={handleBack}
-            variant="outlined"
-          >
-            Cancel
-          </Button>
-        </Grid>
-        <Grid container item md={8} justifyContent={"flex-end"} gap={2}>
-          <Grid item md={4}>
-            <Button
-              sx={{ width: "100%" }}
-              onClick={handleBack}
-              variant="outlined"
-            >
-              Back
-            </Button>
-          </Grid>
-          <Grid item md={4}>
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{ backgroundColor: "#215190", width: "100%" }}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Grid>
+      <Grid container alignItems={"center"}  item md={3} gap={4}>
+      <LoanDetails currentLoan={currentLoan}/>
       </Grid>
     </Grid>
   );

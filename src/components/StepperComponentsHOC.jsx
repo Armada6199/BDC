@@ -9,21 +9,17 @@ function StepperComponentsHOC({
   currentLoan,
   setCurrentLoan,
   loans,
-  handleNext,
-  handleBack,
   register,
   errors,
-  setValue
+  setValue,
 }) {
   switch (activeStep) {
     case 0:
       return (
         <LoanInformation
           currentLoan={currentLoan}
-          handleNext={handleNext}
           loans={loans}
           setCurrentLoan={setCurrentLoan}
-          handleBack={handleBack}
           register={register}
           errors={errors}
           setValue={setValue}
@@ -33,9 +29,7 @@ function StepperComponentsHOC({
       return (
         <LoanEligibility
           currentLoan={currentLoan}
-          handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
-          handleBack={handleBack}
           register={register}
         />
       );
@@ -43,9 +37,7 @@ function StepperComponentsHOC({
       return (
         <PersonalInformation
           currentLoan={currentLoan}
-          handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
-          handleBack={handleBack}
           register={register}
           errors={errors}
         />
@@ -54,9 +46,7 @@ function StepperComponentsHOC({
       return (
         <Documents
           currentLoan={currentLoan}
-          handleNext={handleNext}
           setCurrentLoan={setCurrentLoan}
-          handleBack={handleBack}
           register={register}
           errors={errors}
         />

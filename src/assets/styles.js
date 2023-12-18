@@ -5,24 +5,7 @@ export const glassmorphismStyle = {
     borderRadius: "10px ",
     border: "1px solid rgba( 255, 255, 255, 0.18 )",
   };
-  export const selectStyles={
-    'label + &': {
-      marginTop: 4,
-    },
-    '& .MuiInputBase-input': {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: '#f6f6f6',
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      padding: '10px 26px 10px 12px',
-      '&:focus': {
-        borderRadius: 4,
-        borderColor: '#80bdff',
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    },
-  }
+
   export const loanTypesBoxesStyle = {
     height: "139px",
     justifyContent: "center",

@@ -7,6 +7,7 @@ import StepperComponentsHOC from "./components/StepperComponentsHOC.jsx";
 import { loanDetailsData } from "./assets/loans.jsx";
 import { useForm } from "react-hook-form";
 import calculateEMI from "./utils/utils.js";
+import StepperNavigationButtons from "./components/StepperNavigationButtons.jsx";
 const steps = [
   "1. Load information",
   "2. Loan Eligibility ",
@@ -65,15 +66,18 @@ export default function HorizontalLinearStepper() {
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if(activeStep>0){
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    }else return
   };
 
   const handleReset = () => {
+    setCurrentLoan(loans[0])
     setActiveStep(0);
   };
   return (
     <Grid container gap={2} height={"100vh"} bgcolor={"#F1F3F4"}>
-      <Grid container item md={12} p={4} gap={4}>
+      <Grid container minHeight={'20vh'} item md={12} p={4} gap={4}>
         <Typography variant="h4">Apply Loan</Typography>
         <Grid item md={12} sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -117,18 +121,21 @@ export default function HorizontalLinearStepper() {
         </Grid>
       </Grid>
       <form noValidate onSubmit={handleSubmit(handleNext)}>
-        <Grid item p={4} bgcolor={"#fff"}>
+        <Grid container item p={4} minHeight={'75vh'} gap={4} bgcolor={"#fff"}>
+          <Grid container minHeight={'70vh'} item md={12}>
           <StepperComponentsHOC
             currentLoan={currentLoan}
             loans={loans}
             setCurrentLoan={setCurrentLoan}
             activeStep={activeStep}
             register={register}
-            handleNext={handleNext}
-            handleBack={handleBack}
             errors={errors}
             setValue={setValue}
           />
+          </Grid>
+       <Grid item md={12}>
+       <StepperNavigationButtons handleBack={handleBack} handleRest={handleReset}/>
+       </Grid>
         </Grid>
       </form>
     </Grid>
