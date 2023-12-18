@@ -5,15 +5,15 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip);
 
 
-export default function CustomChart({layers,totalAppliedLayers}) {
+export default function CustomChart({totalAppliedLayers}) {
   const appliedInterests=totalAppliedLayers.map(ele=>{
     return ele.totalApplied;
   })
-  layers=layers=layers.map(ele=>{
+  const titles=totalAppliedLayers.map(ele=>{
     return ele.title;
   })
   const data = {
-    labels: layers,
+    labels: titles,
     datasets: [
       {
         label: 'Interests',

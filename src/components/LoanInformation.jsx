@@ -13,52 +13,18 @@ import {
   TextField,
   InputAdornment,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import React from "react";
-import { glassmorphismStyle } from "../assets/styles";
+import {
+  glassmorphismStyle,
+  loanInfoInputStyle,
+  loansIconStyle,
+  loanIconContStyle,
+  loanTypesBoxesStyle,
+} from "../assets/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EditIcon from "@mui/icons-material/Edit";
-const loanTypesBoxesStyle = {
-  height: "139px",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: 1,
-  gap: 1,
-  ...glassmorphismStyle,
-  borderRadius: "20px",
-};
-const loanIconContStyle = {
-  display: "flex",
-  borderRadius: "50%",
-  height: "58px",
-  bgcolor: "#C4B28F",
-  width: "58px",
-  justifyContent: "center",
-  alignItems: "center",
-};
-const loansIconStyle = {
-  width: "31px",
-  height: "41px",
-  color: "#fff",
-};
-const loanInfoInputStyle = {
-  alignSelf: "flex-end",
-  width: "100%",
-  ...glassmorphismStyle,
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "none",
-      border: "none",
-    },
-    "&:hover fieldset": {
-      borderColor: "none",
-      border: "none",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "none",
-      border: "none",
-    },
-  },
-};
+import ActiveLoanForm from "./ActiveLoanForm";
 function LoanInformation({
   currentLoan,
   setCurrentLoan,
@@ -74,21 +40,7 @@ function LoanInformation({
     setCurrentLoan(targetLoan);
   }
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm({
-  // defaultValues: {
-  //   loanAmount: null,
-  //   numberOfMonths: null,
-  //   currentSalary: null,
-  //   currentLoanAmount: null,
-  // },
-  // });
-
-  const handleInputChange = (e) => {
+  const handleSliderChange = (e) => {
     let { name, value } = e.target;
     setValue(name, value);
     name = name.split("_")[0];
@@ -107,7 +59,7 @@ function LoanInformation({
   };
   return (
     <Grid container minHeight={"70vh"} spacing={4}>
-      <Grid container alignItems={"center"} item md={8}>
+      <Grid container alignItems={"center"} item md={8} gap={1}>
         <Grid container item md={12} gap={4}>
           <Grid item md={6}>
             <Typography variant="h5" fontWeight={"600"}>
@@ -181,7 +133,7 @@ function LoanInformation({
                   step={1000}
                   {...register("loanAmount_Slider", {
                     required: "Kindly Choose loan amount",
-                    onChange: (e) => handleInputChange(e),
+                    onChange: (e) => handleSliderChange(e),
                   })}
                   value={
                     currentLoan.loanAmount ? currentLoan.loanAmount : 210000 / 2
@@ -227,6 +179,7 @@ function LoanInformation({
               <Grid item md={4}>
                 <TextField
                   sx={loanInfoInputStyle}
+                  fullWidth
                   id="numberOfMonthsInput"
                   InputProps={{
                     startAdornment: (
@@ -266,7 +219,7 @@ function LoanInformation({
                   }
                   {...register("numberOfMonths_Slider", {
                     required: "Kindly Choose How many months",
-                    onChange: (e) => handleInputChange(e),
+                    onChange: (e) => handleSliderChange(e),
                     validate: validateGreaterThanSalary,
                   })}
                 />
@@ -340,14 +293,13 @@ function LoanInformation({
                 step={50}
                 {...register("currentSalary_Slider", {
                   required: "Kindly choose your current salary",
-                  onChange: (e) => handleInputChange(e),
+                  onChange: (e) => handleSliderChange(e),
                 })}
                 value={
                   currentLoan.currentSalary
                     ? currentLoan.currentSalary
                     : 10000 / 2
                 }
-                // onChange={handleInputChange}
               />
             </Grid>
             <Grid container item justifyContent={"space-between"}>
@@ -435,46 +387,17 @@ function LoanInformation({
           </FormControl>
         </Grid>
         {currentLoan.hasPrevLoan && (
-          <Grid container item md={10}>
-            <Grid item md={8}>
-              <Typography variant="h5">Current Loan:</Typography>
-            </Grid>
-            <Grid container item md={8}>
-              <Grid item md={12}>
-                <Slider
-                  min={250}
-                  max={100_000}
-                  defaultValue={100_000 / 2}
-                  valueLabelDisplay="auto"
-                  color="secondary"
-                  size="medium"
-                  name="prevLoanAmount_Slider"
-                  step={50}
-                  {...register("currentLoanAmount")}
-                  // onChange={handleInputChange}
-                />
-              </Grid>
-              <Grid container item justifyContent={"space-between"}>
-                <Grid item>
-                  <Typography
-                    variant="body1"
-                    fontWeight={"bold"}
-                    color={"darkgray"}
-                  >
-                    5000 JD
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography
-                    variant="body1"
-                    fontWeight={"bold"}
-                    color={"darkgray"}
-                  >
-                    2100000 JD
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+          <Grid container minHeight={"100px"} gap={4} item md={12}>
+            {currentLoan.activeLoans.map((activeLoan,index) => (
+              <ActiveLoanForm
+              key={index}
+              index={index}
+              activeLoan={activeLoan}
+                register={register}
+                currentLoan={currentLoan}
+                setCurrentLoan={setCurrentLoan}
+              />
+            ))}
           </Grid>
         )}
       </Grid>

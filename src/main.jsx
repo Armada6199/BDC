@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { ThemeProvider } from '@emotion/react';
 import { Box, createTheme } from '@mui/material';
 const theme = createTheme({
+
   typography: {
     fontFamily: [
       'DM Sans',
@@ -28,6 +29,7 @@ const theme = createTheme({
     }
     // secondary: purple,
   },
+
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(

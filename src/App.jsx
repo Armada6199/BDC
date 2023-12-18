@@ -28,15 +28,15 @@ export default function HorizontalLinearStepper() {
       loanAmount: null,
       numberOfMonths: null,
       currentSalary: null,
-      currentLoanAmount: null,
+      activeLoanAmount: null,
     },
   });
   function handleCalculateLoan() {
-    let { loanAmount, currentLoanAmount = 0, numberOfMonths,intrestRates } = currentLoan;
+    let { loanAmount, activeLoanAmount = 0, numberOfMonths,intrestRates } = currentLoan;
     loanAmount = Number(loanAmount);
-    currentLoanAmount = Number(currentLoanAmount);
+    activeLoanAmount = Number(activeLoanAmount);
     const { totalAmount, totalInterests, totalInterestLayers } = calculateEMI(
-      loanAmount + currentLoanAmount,
+      loanAmount + activeLoanAmount,
       intrestRates,
       numberOfMonths
     );
