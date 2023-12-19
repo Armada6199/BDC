@@ -31,6 +31,7 @@ function LoanInformation({
   };
   const handleInputFieldChange = (e) => {
     let { name, value } = e.target;
+    
     setValue(name, value);
     name = name.split("_")[0];
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
@@ -41,7 +42,7 @@ function LoanInformation({
     } else return true;
   };
   return (
-    <Grid container alignItems={'flex-start'}  >
+    <Grid container alignItems={'flex-start'} spacing={4} >
       <Grid container  alignItems={"center"} item md={6} gap={4}>
         <Grid container item md={12} gap={4}>
           <Grid item md={12}>
@@ -49,7 +50,7 @@ function LoanInformation({
               I want to apply
             </Typography>
           </Grid>
-          <Grid container item justifyContent={'space-between'} md={10} >
+          <Grid container item justifyContent={'space-between'} md={10} lg={12} >
             <LoanTypes
               currentLoan={currentLoan}
               setCurrentLoan={setCurrentLoan}
@@ -71,21 +72,21 @@ function LoanInformation({
       <Grid container item >
       <MonthsSlider
           currentLoan={currentLoan}
-          register={register}
           handleSliderChange={handleSliderChange}
           validateGreaterThanSalary={validateGreaterThanSalary}
           handleInputFieldChange={handleInputFieldChange}
+          register={register}
           errors={errors}
         />
       </Grid>
       <Grid container item >
       <CurrentSalarySlider
-          currentLoan={currentLoan}
-          register={register}
-          handleSliderChange={handleSliderChange}
-          validateGreaterThanSalary={validateGreaterThanSalary}
-          handleInputFieldChange={handleInputFieldChange}
-          errors={errors}
+           currentLoan={currentLoan}
+           handleSliderChange={handleSliderChange}
+           validateGreaterThanSalary={validateGreaterThanSalary}
+           handleInputFieldChange={handleInputFieldChange}
+           register={register}
+           errors={errors}
         />
       </Grid>
         </Grid>

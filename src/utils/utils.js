@@ -33,7 +33,7 @@ export default function calculateEMI(loanAmount, rates, numberOfMonths) {
         min:rates[i].min,
         max:rates[i].max
       });
-    }
+    } 
   }
   totalAmount += totalInterests;
   return { totalAmount, totalInterests, totalInterestLayers };

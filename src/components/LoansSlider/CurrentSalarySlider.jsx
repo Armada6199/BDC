@@ -1,5 +1,7 @@
 import React from "react";
 import {
+  FormControl,
+  FormHelperText,
   Grid,
   InputAdornment,
   Slider,
@@ -14,11 +16,11 @@ function CurrentSalarySlider({
   currentLoan,
   handleSliderChange,
   handleInputFieldChange,
-  validateGreaterThanSalary,
   errors,
 }) {
   return (
-    <>
+    <FormControl fullWidth error={errors.currentSalary_Slider?.message &&
+      errors.currentSalary_Input?.message ?true:false}>
       <Grid container justifyContent={"space-between"} item md={12}>
         <Grid item md={6}>
           <Typography variant="h5" fontWeight={"600"}>
@@ -28,7 +30,7 @@ function CurrentSalarySlider({
         <Grid item md={4}>
           <TextField
             sx={loanInfoInputStyle}
-            id="currentSalary_Input"
+            id="currentSalaryInput"
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
@@ -38,6 +40,9 @@ function CurrentSalarySlider({
             }}
             {...register("currentSalary_Input", {
                 onChange: (e) => handleInputFieldChange(e),
+                required: currentLoan.currentSalary==0
+                ?"Kindly Choose Salary amount"
+                : "Kindly Choose Salary amount",
             })}
             type="number"
             step={50}
@@ -56,9 +61,12 @@ function CurrentSalarySlider({
             valueLabelDisplay="auto"
             color="secondary"
             size="medium"
+            name="currentSalary"
             step={50}
             {...register("currentSalary_Slider", {
-                required: "Kindly choose your current salary",
+              required: currentLoan.currentSalary===0
+                ?"Kindly Choose Salary amount"
+                : "Kindly Choose Salary amount",
                 onChange: (e) => handleSliderChange(e),
             })}
             value={
@@ -72,13 +80,10 @@ function CurrentSalarySlider({
               250 JD
             </Typography>
           </Grid>
-          {errors.currentSalary?.message && (
               <Grid item md={5}>
-              <Typography variant="body2" color="error">
-                {errors.currentSalary.message}
-              </Typography>
+                {console.log(errors)}
+              <FormHelperText> {errors.currentSalary_Input?.message}</FormHelperText>
             </Grid>
-          )}
           <Grid item>
             <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
               100000 JD
@@ -86,7 +91,7 @@ function CurrentSalarySlider({
           </Grid>
         </Grid>
       </Grid>
-      </>
+      </FormControl>
   );
 }
 

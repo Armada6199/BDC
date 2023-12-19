@@ -12,6 +12,7 @@ import CustomChart from "./CustomChart";
 import { glassmorphismStyle } from "../assets/styles";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ElibiblityLayerTable from "./ElibiblityLayerTable";
+import { CustomBarChat } from "./CustomBarChat";
 
 function LoanEligibility({ currentLoan,setCurrentLoan }) {
   const [openStagesCollapse, setopenStagesCollapse] = useState({
@@ -143,7 +144,8 @@ function LoanEligibility({ currentLoan,setCurrentLoan }) {
           flexDirection={"column"}
         >
           <Box>
-            <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} />
+            {/* <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} /> */}
+            <CustomBarChat totalAppliedLayers={currentLoan.totalAppliedLayers}/>
           </Box>
           <Grid container justifyContent={"center"} item gap={1} md={12}>
             <Grid item md={5}>

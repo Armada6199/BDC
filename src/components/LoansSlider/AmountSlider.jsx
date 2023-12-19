@@ -1,6 +1,7 @@
 import React from "react";
 import {
   FormControl,
+  FormHelperText,
   Grid,
   InputAdornment,
   Slider,
@@ -17,8 +18,9 @@ function AmountSlider({
   errors,
 }) {
   const maxAmount=currentLoan.maxAmount(currentLoan.intrestRates)
-  return (
-    <>
+  return (  
+    <FormControl fullWidth error={errors.loanAmount_Slider?.message &&
+      errors.loanAmount_Input?.message ?true:false}>
       <Grid container item md={12}>
         <Grid container justifyContent={"space-between"} item md={12}>
           <Grid item md={6}>
@@ -34,6 +36,8 @@ function AmountSlider({
                 required: currentLoan.loanAmount
                   ?false 
                   : "Kindly Choose loan amount",
+                  min:currentLoan.minAmount,
+                  max:maxAmount
               })}
               onChange={(e) => handleInputFieldChange(e)}
               type="number"
@@ -47,7 +51,6 @@ function AmountSlider({
                     <EditIcon sx={{ color: "#C4B28F" }} />
                   </InputAdornment>
                 ),
-
                 value: currentLoan.loanAmount,
               }}
               variant="outlined"
@@ -55,7 +58,7 @@ function AmountSlider({
           </Grid>
           <Grid item md={12}>
             <Slider
-              min={5000}
+              min={currentLoan.min}
               max={maxAmount}
               valueLabelDisplay="auto"
               color="secondary"
@@ -63,9 +66,9 @@ function AmountSlider({
               name="loanAmount"
               step={1000}
               {...register("loanAmount_Slider", {
-                required: currentLoan.loanAmount>0
-                  ?  "Kindly Choose loan amount"
-                  :false,
+                required: currentLoan.loanAmount
+                  ?false 
+                  : "Kindly Choose loan amount",
                 onChange: (e) => handleSliderChange(e),
               })}
               value={
@@ -83,14 +86,9 @@ function AmountSlider({
                 {currentLoan.minAmount} JD
               </Typography>
             </Grid>
-            {errors.loanAmount_Slider?.message ||
-              errors.loanAmount_Input?.message && 
                 <Grid item md={5}>
-                  <Typography variant="body1" color="red">
-                   {errors.loanAmount_Slider?.message||errors.loanAmount_Input?.message}
-                  </Typography>
+                  <FormHelperText> {errors.loanAmount_Slider?.message}</FormHelperText>
                 </Grid>
-              }
             <Grid item>
               <Typography
                 variant="body1"
@@ -103,7 +101,7 @@ function AmountSlider({
           </Grid>
         </Grid>
       </Grid>
-    </>
+      </FormControl>
   );
 }
 

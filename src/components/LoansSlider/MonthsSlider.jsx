@@ -1,5 +1,7 @@
 import React from "react";
 import {
+  FormControl,
+  FormHelperText,
   Grid,
   InputAdornment,
   Slider,
@@ -18,8 +20,16 @@ function MonthsSlider({
   validateGreaterThanSalary,
 }) {
   return (
-<>
-<Grid container item md={12} >
+    <FormControl
+      fullWidth
+      error={
+        errors.numberOfMonths_Input?.message &&
+        errors.numberOfMonths_Slider?.message
+          ? true
+          : false
+      }
+    >
+      <Grid container item md={12}>
         <Grid container item gap={1} justifyContent={"space-between"} md={12}>
           <Grid item md={6}>
             <Typography variant="h5" fontWeight={"600"}>
@@ -29,28 +39,27 @@ function MonthsSlider({
           <Grid item md={4}>
             <TextField
               sx={loanInfoInputStyle}
-              fullWidth
               id="numberOfMonthsInput"
+              {...register("numberOfMonths_Input", {
+                required: currentLoan.numberOfMonthst
+                  ? false
+                  : "Kindly Choose loan amount",
+              })}
+              onChange={(e) => handleInputFieldChange(e)}
               InputProps={{
-                  startAdornment: (
-                      <InputAdornment position="start">
+                startAdornment: (
+                  <InputAdornment position="start">
                     <EditIcon sx={{ color: "#C4B28F" }} />
                   </InputAdornment>
                 ),
-            }}
-            {...register("numberOfMonths_Input", {
-                required: currentLoan.numberOfMonths>0?"Kindly Choose How many months":false,
-                onChange: (e) => handleInputFieldChange(e),
-                validate: validateGreaterThanSalary,
-                maxAmount: 300,
-            })}
-            type="number"
-            inputProps={{
+                value: currentLoan.numberOfMonths?currentLoan.numberOfMonths:currentLoan.maxMonths/2,
+              }}
+              type="number"
+              inputProps={{
                 min: currentLoan.minMonths,
                 max: currentLoan.maxMonths,
-            }}
-            value={currentLoan.numberOfMonths?currentLoan.numberOfMonths:currentLoan.maxMonths/2}
-            variant="outlined"
+              }}
+              variant="outlined"
             />
           </Grid>
           <Grid item md={12}>
@@ -60,17 +69,19 @@ function MonthsSlider({
               valueLabelDisplay="auto"
               color="secondary"
               size="medium"
+              name="numberOfMonths"
               step={6}
-              defaultValue={150}
+              {...register("numberOfMonths_Slider", {
+                required: currentLoan.numberOfMonths
+                  ? false
+                  : "Kindly Choose loan amount",
+                onChange: (e) => handleSliderChange(e), 
+              })}
               value={
-                currentLoan.numberOfMonths ? currentLoan.numberOfMonths : currentLoan.maxMonths/2
-              }
-                {...register("numberOfMonths_Slider", {
-                    required: currentLoan.numberOfMonths>0?false:"Kindly Choose How many months",
-                    onChange: (e) => handleSliderChange(e),
-                    validate: validateGreaterThanSalary,
-                })}
-                />
+              currentLoan.numberOfMonths
+                ? currentLoan.numberOfMonths
+                : currentLoan.maxMonths / 2}
+            />
           </Grid>
         </Grid>
         <Grid container item justifyContent={"space-between"}>
@@ -79,14 +90,14 @@ function MonthsSlider({
               {currentLoan.minMonths}
             </Typography>
           </Grid>
-          {errors.numberOfMonths_Input?.message ||
-              errors.numberOfMonths_Slider?.message && 
-                <Grid item md={5}>
-                  <Typography variant="body1" color="red">
-                   {errors.numberOfMonths_Input?.message ||errors.numberOfMonths_Slider?.message}
-                  </Typography>
-                </Grid>
-              }
+
+          <Grid item md={5}>
+            <FormHelperText>
+              {" "}
+              {errors.numberOfMonths_Input?.message}
+            </FormHelperText>
+          </Grid>
+
           <Grid item>
             <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
               {currentLoan.maxMonths}
@@ -94,7 +105,7 @@ function MonthsSlider({
           </Grid>
         </Grid>
       </Grid>
-  </>
+    </FormControl>
   );
 }
 

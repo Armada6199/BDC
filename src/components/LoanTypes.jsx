@@ -21,7 +21,8 @@ import {
           cursor: "pointer",
         }}
         item
-        md={2}
+        md={6}
+        lg={2}
         key={loan.title}
         onClick={() => handleChangeCurrentLoan(loan.title)}
       >
