@@ -1,33 +1,35 @@
 import { Grid,Button } from '@mui/material'
 import React from 'react'
 
-function StepperNavigationButtons({handleRest,handleBack}) {
+function StepperNavigationButtons({handleRest,handleBack,activeStep,handleNext}) {
   return (
-    <Grid container item md={12}>
-    <Grid item md={4}>
+    <Grid container   justifyContent={'space-between'} spacing={2} item >
+    <Grid item  md={2}>
       <Button
-        sx={{ width: "100%" }}
+        fullWidth
         onClick={handleRest}
         variant="outlined"
       >
         Cancel
       </Button>
     </Grid>
-    <Grid container item md={8} justifyContent={"flex-end"} gap={2}>
-      <Grid item md={4}>
+    <Grid container spacing={2} justifyContent={'flex-end'} item md={4}>
+      {activeStep>0&&
+      <Grid item md={6}>
         <Button
-          sx={{ width: "100%" }}
+        fullWidth
           onClick={handleBack}
           variant="outlined"
         >
           Back
         </Button>
-      </Grid>
-      <Grid item md={4}>
+      </Grid>}
+      <Grid item md={6}>
         <Button
+        fullWidth
           variant="contained"
           type="submit"
-          sx={{ backgroundColor: "#215190", width: "100%" }}
+          sx={{ backgroundColor: "#215190"}}
         >
           Next
         </Button>

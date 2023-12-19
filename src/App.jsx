@@ -8,17 +8,24 @@ import { loanDetailsData } from "./assets/loans.jsx";
 import { useForm } from "react-hook-form";
 import calculateEMI from "./utils/utils.js";
 import StepperNavigationButtons from "./components/StepperNavigationButtons.jsx";
+import { glassmorphismStyle } from "./assets/styles.js";
 const steps = [
   "1. Load information",
   "2. Loan Eligibility ",
   "3. Personal Information",
   "4. Documents",
 ];
-
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loans, setLoans] = React.useState(loanDetailsData);
   const [currentLoan, setCurrentLoan] = React.useState(loans[1]);
+  const [navigationFixed,setNavigationFixed]=React.useState(false);
+  function setNavigation(){
+    if(document.body.scrollHeight>=window.scrollY + window.innerHeight){
+      setNavigationFixed(true)
+    }else setNavigationFixed(false);
+  }
+  window.addEventListener('scroll',setNavigation)
   const {
     register,
     handleSubmit,
@@ -30,6 +37,8 @@ export default function HorizontalLinearStepper() {
       numberOfMonths: null,
       currentSalary: null,
       activeLoanAmount: null,
+      loanAmount_Input:null,
+      loanAmount_Slider:null
     },
   });
   function handleCalculateLoan() {
@@ -76,8 +85,9 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
   return (
-    <Grid container gap={2} height={"100vh"} bgcolor={"#F1F3F4"}>
-      <Grid container minHeight={'20vh'} item md={12} p={4} gap={4}>
+    <form noValidate onSubmit={handleSubmit(handleNext)}>
+    <Grid container  minHeight={'100vh'}  bgcolor={"#F1F3F4"}>
+      <Grid container minHeight={'20vh'} item md={12} p={4} gap={2}>
         <Typography variant="h4">Apply Loan</Typography>
         <Grid item md={12} sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>
@@ -117,12 +127,11 @@ export default function HorizontalLinearStepper() {
                 </Box>
               );
             })}
-          </Stepper>
+          </Stepper>  
         </Grid>
       </Grid>
-      <form noValidate onSubmit={handleSubmit(handleNext)}>
-        <Grid container item p={4} minHeight={'75vh'} gap={4} bgcolor={"#fff"}>
-          <Grid container minHeight={'70vh'} item md={12}>
+        <Grid container item p={4} minHeight={'75vh'}  gap={4} bgcolor={"#fff"}>
+          <Grid container  item md={12}>
           <StepperComponentsHOC
             currentLoan={currentLoan}
             loans={loans}
@@ -133,11 +142,11 @@ export default function HorizontalLinearStepper() {
             setValue={setValue}
           />
           </Grid>
-       <Grid item md={12}>
-       <StepperNavigationButtons handleBack={handleBack} handleRest={handleReset}/>
-       </Grid>
-        </Grid>
-      </form>
+        </Grid> 
+      <Box sx={{backgroundColor:'#fff',transition:'all ease-in-out .7s'}} width={'100%'} p={4} height={'65px'} position={'sticky'} bottom={'0px'} >
+       <StepperNavigationButtons handleBack={handleBack} activeStep={activeStep} handleRest={handleReset}/>
+       </Box>
     </Grid>
+    </form>
   );
 }

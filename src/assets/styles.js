@@ -7,9 +7,8 @@ export const glassmorphismStyle = {
   };
 
   export const loanTypesBoxesStyle = {
+    minWidth:'165px',
     height: "139px",
-    justifyContent: "center",
-    alignItems: "center",
     padding: 1,
     gap: 1,
     ...glassmorphismStyle,

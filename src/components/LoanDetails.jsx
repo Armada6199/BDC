@@ -1,37 +1,46 @@
-import { Grid, Typography } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { glassmorphismStyle } from '../assets/styles';
+import TermsTable from './TermsTable';
 
 function LoanDetails({currentLoan}) {
   return (
 <Grid container item p={4} gap={4} sx={glassmorphismStyle}>
-        <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
+  <Grid item md={12}>
+  <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
           {currentLoan.title}
         </Typography>
-        <Typography variant="body2" fontWeight={"500"}>
+  </Grid>
+      <Grid item md={12}>
+      <Typography variant="body1" fontWeight={"500"}>
           {currentLoan.description}
         </Typography>
-        <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
+      </Grid>
+     <Grid item md={12}>
+     <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
           Privileges
         </Typography>
-        {currentLoan.privileges.map((priv) => (
+     </Grid>
+     <Grid container item gap={2}>
+     {currentLoan.privileges.map((priv) => (
+      <Grid item md={12} lg={5} key={priv}>
           <Box key={priv} display={"flex"} gap={1}>
             <CheckCircleIcon color="secondary" />
             <Typography>{priv}</Typography>
           </Box>
+        </Grid>
         ))}
+     </Grid>
+        <Grid item md={12}>
         <Typography variant="h6" fontWeight={"bold"} color={"#215190"}>
-          {" "}
           Terms and Conditions
         </Typography>
-        {currentLoan.termsAndConditions.map((term) => (
-          <Box display={"flex"} key={term} gap={1}>
-            <CheckCircleIcon color="secondary" />
-            <Typography>{term}</Typography>
-          </Box>
-        ))}
+        </Grid>
+        <Grid container item>
+        <TermsTable currentLoan={currentLoan}/>
+        </Grid>
     </Grid>
   )
 }

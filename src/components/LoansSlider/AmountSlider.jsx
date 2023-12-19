@@ -1,0 +1,110 @@
+import React from "react";
+import {
+  FormControl,
+  Grid,
+  InputAdornment,
+  Slider,
+  TextField,
+  Typography,
+} from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { loanInfoInputStyle } from "../../assets/styles";
+function AmountSlider({
+  register,
+  currentLoan,
+  handleSliderChange,
+  handleInputFieldChange,
+  errors,
+}) {
+  const maxAmount=currentLoan.maxAmount(currentLoan.intrestRates)
+  return (
+    <>
+      <Grid container item md={12}>
+        <Grid container justifyContent={"space-between"} item md={12}>
+          <Grid item md={6}>
+            <Typography fontWeight={"600"} variant="h5">
+              I want to borrow:
+            </Typography>
+          </Grid>
+          <Grid item md={4}>
+            <TextField
+              sx={loanInfoInputStyle}
+              id="loanAmountInput"
+              {...register("loanAmount_Input", {
+                required: currentLoan.loanAmount
+                  ?false 
+                  : "Kindly Choose loan amount",
+              })}
+              onChange={(e) => handleInputFieldChange(e)}
+              type="number"
+              inputProps={{
+                min: currentLoan.minAmount,
+                max: maxAmount,
+            }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EditIcon sx={{ color: "#C4B28F" }} />
+                  </InputAdornment>
+                ),
+
+                value: currentLoan.loanAmount,
+              }}
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item md={12}>
+            <Slider
+              min={5000}
+              max={maxAmount}
+              valueLabelDisplay="auto"
+              color="secondary"
+              size="medium"
+              name="loanAmount"
+              step={1000}
+              {...register("loanAmount_Slider", {
+                required: currentLoan.loanAmount>0
+                  ?  "Kindly Choose loan amount"
+                  :false,
+                onChange: (e) => handleSliderChange(e),
+              })}
+              value={
+                currentLoan.loanAmount ? currentLoan.loanAmount : maxAmount / 2
+              }
+            />
+          </Grid>
+          <Grid container item justifyContent={"space-between"}>
+            <Grid item>
+              <Typography
+                variant="body1"
+                fontWeight={"bold"}
+                color={"darkgray"}
+              >
+                {currentLoan.minAmount} JD
+              </Typography>
+            </Grid>
+            {errors.loanAmount_Slider?.message ||
+              errors.loanAmount_Input?.message && 
+                <Grid item md={5}>
+                  <Typography variant="body1" color="red">
+                   {errors.loanAmount_Slider?.message||errors.loanAmount_Input?.message}
+                  </Typography>
+                </Grid>
+              }
+            <Grid item>
+              <Typography
+                variant="body1"
+                fontWeight={"bold"}
+                color={"darkgray"}
+              >
+                {maxAmount} JD
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
+  );
+}
+
+export default AmountSlider;
