@@ -36,8 +36,14 @@ function AmountSlider({
                 required: currentLoan.loanAmount
                   ?false 
                   : "Kindly Choose loan amount",
-                  min:currentLoan.minAmount,
-                  max:maxAmount
+                  min: {
+                    value: currentLoan.minAmount,
+                    message: 'Minimum Loan Amount is 5000', 
+                  },
+                  max: {
+                    value: maxAmount,
+                    message: `Maximum Loan Amount is ${maxAmount}`, 
+                  },
               })}
               onChange={(e) => handleInputFieldChange(e)}
               type="number"
@@ -87,7 +93,7 @@ function AmountSlider({
               </Typography>
             </Grid>
                 <Grid item md={5}>
-                  <FormHelperText> {errors.loanAmount_Slider?.message}</FormHelperText>
+                  <FormHelperText sx={{color:'red'}}> {errors.loanAmount_Input?.message}</FormHelperText>
                 </Grid>
             <Grid item>
               <Typography

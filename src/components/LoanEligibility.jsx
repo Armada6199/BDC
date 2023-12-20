@@ -10,17 +10,16 @@ import React, { useEffect, useState } from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomChart from "./CustomChart";
 import { glassmorphismStyle } from "../assets/styles";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ElibiblityLayerTable from "./ElibiblityLayerTable";
 import { CustomBarChat } from "./CustomBarChat";
 
-function LoanEligibility({ currentLoan,setCurrentLoan }) {
-  const [openStagesCollapse, setopenStagesCollapse] = useState({
-    0: false,
-    1: false,
-    2: false,
-    3: false,
-  });
+function LoanEligibility({ currentLoan }) {
+  // const [openStagesCollapse, setopenStagesCollapse] = useState({
+  //   0: false,
+  //   1: false,
+  //   2: false,
+  //   3: false,
+  // });
   // useEffect(() => {
   //   console.log(currentLoan.totalAppliedLayers);
   //   setCurrentLoan((prev) => ({
@@ -126,28 +125,18 @@ function LoanEligibility({ currentLoan,setCurrentLoan }) {
         ))}
       </Grid>
       <Grid
-        sx={glassmorphismStyle}
-        p={2}
+        p={4}
         container
         item
-        justifyContent={"center"}
-        alignItems={"center"}
-        bgcolor={"red"}
+        justifyContent={'flex-start'}
         md={4}
+        gap={12}
       >
-        <Box
-          display={"flex"}
-          width={"100%"}
-          justifyContent={"center"}
-          alignItems={"center"}
-          gap={4}
-          flexDirection={"column"}
-        >
-          <Box>
-            {/* <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} /> */}
-            <CustomBarChat totalAppliedLayers={currentLoan.totalAppliedLayers}/>
-          </Box>
-          <Grid container justifyContent={"center"} item gap={1} md={12}>
+          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'} minHeight={'45%'}  gap={4} item md={12}  p={4}>
+            <Grid item md={12}>
+          <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} />
+            </Grid>
+            <Grid container justifyContent={"center"} item gap={1} md={12}>
             <Grid item md={5}>
               <Typography variant="h6">EMI Amount</Typography>
               <Typography variant="body1">Principal + Interest </Typography>
@@ -160,8 +149,11 @@ function LoanEligibility({ currentLoan,setCurrentLoan }) {
               </Typography>
             </Grid>
           </Grid>
-        </Box>
-      </Grid>
+          </Grid>
+          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'}  minHeight={'45%'} gap={4} item md={12} p={4}>
+          <CustomBarChat totalAppliedLayers={currentLoan.totalAppliedLayers} maxAmount={currentLoan.maxAmount(currentLoan.intrestRates)}/>
+          </Grid> 
+        </Grid>
     </Grid>
   );
 }

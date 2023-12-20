@@ -17,6 +17,7 @@ function CurrentSalarySlider({
   handleSliderChange,
   handleInputFieldChange,
   errors,
+  validateGreaterThanSalary
 }) {
   return (
     <FormControl fullWidth error={errors.currentSalary_Slider?.message &&
@@ -43,7 +44,12 @@ function CurrentSalarySlider({
                 required: currentLoan.currentSalary==0
                 ?"Kindly Choose Salary amount"
                 : "Kindly Choose Salary amount",
-            })}
+                min: {
+                  value: 250,
+                  message: 'Minimum Eligible Salary is 250 JD', 
+                },
+                validate:validateGreaterThanSalary,
+            })} 
             type="number"
             step={50}
             inputProps={{
@@ -68,6 +74,7 @@ function CurrentSalarySlider({
                 ?"Kindly Choose Salary amount"
                 : "Kindly Choose Salary amount",
                 onChange: (e) => handleSliderChange(e),
+                validate:validateGreaterThanSalary,
             })}
             value={
                 currentLoan.currentSalary ? currentLoan.currentSalary : 10000 / 2
@@ -81,8 +88,7 @@ function CurrentSalarySlider({
             </Typography>
           </Grid>
               <Grid item md={5}>
-                {console.log(errors)}
-              <FormHelperText> {errors.currentSalary_Input?.message}</FormHelperText>
+              <FormHelperText sx={{color:'red'}}> {errors.currentSalary_Input?.message||errors.currentSalary_Slider?.message}</FormHelperText>
             </Grid>
           <Grid item>
             <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>

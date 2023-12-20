@@ -19,13 +19,12 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loans, setLoans] = React.useState(loanDetailsData);
   const [currentLoan, setCurrentLoan] = React.useState(loans[1]);
-  const [navigationFixed,setNavigationFixed]=React.useState(false);
-  function setNavigation(){
-    if(document.body.scrollHeight>=window.scrollY + window.innerHeight){
-      setNavigationFixed(true)
-    }else setNavigationFixed(false);
-  }
-  window.addEventListener('scroll',setNavigation)
+  // function setNavigation(){
+  //   if(document.body.scrollHeight>=window.scrollY + window.innerHeight){
+  //     setNavigationFixed(true)
+  //   }else setNavigationFixed(false);
+  // }
+  // window.addEventListener('scroll',setNavigation)
   const {
     register,
     handleSubmit,
@@ -41,7 +40,7 @@ export default function HorizontalLinearStepper() {
       loanAmount_Slider:null
     },
   });
-  function handleCalculateLoan() {
+  function handleSetEMI(){
     let { loanAmount, activeLoanAmount = 0, numberOfMonths,intrestRates } = currentLoan;
     loanAmount = Number(loanAmount);
     activeLoanAmount = Number(activeLoanAmount);
@@ -50,19 +49,19 @@ export default function HorizontalLinearStepper() {
       intrestRates,
       numberOfMonths
     );
-    setCurrentLoan((prev) => ({
-      ...prev,
-      loanAmount: loanAmount,
-      numberOfMonths: numberOfMonths,
-      EMI: totalAmount,
-      interestPayable: totalInterests,
-      payPerMonth: totalAmount / Number(numberOfMonths),
-      totalAppliedLayers: totalInterestLayers,
-    }));
+  setCurrentLoan((prev) => ({
+    ...prev,
+    loanAmount: loanAmount,
+    numberOfMonths: numberOfMonths,
+    EMI: totalAmount,
+    interestPayable: totalInterests,
+    payPerMonth: totalAmount / Number(numberOfMonths),
+    totalAppliedLayers: totalInterestLayers,
+  }));
   }
   const handleNext = (formData) => {
     if (activeStep == 0) {
-      handleCalculateLoan();
+      handleSetEMI();
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
     if (activeStep !== steps.length - 1 && activeStep !== 0) {
@@ -140,10 +139,11 @@ export default function HorizontalLinearStepper() {
             register={register}
             errors={errors}
             setValue={setValue}
+            handleSetEMI={handleSetEMI}
           />
           </Grid>
         </Grid> 
-      <Box sx={{backgroundColor:'#fff',transition:'all ease-in-out .7s'}} width={'100%'} p={4} height={'65px'} position={'sticky'} bottom={'0px'} >
+      <Box sx={{backgroundColor:'#fff',transition:'all ease-in-out 1s'}} width={'100%'} p={4} height={'65px'} position={'sticky'} bottom={'0px'} >
        <StepperNavigationButtons handleBack={handleBack} activeStep={activeStep} handleRest={handleReset}/>
        </Box>
     </Grid>

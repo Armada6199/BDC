@@ -10,29 +10,46 @@ export default function calculateEMI(loanAmount, rates, numberOfMonths) {
         if (loanAmount - rates[i].max > rates[i].min) {
            layerInterest=calculateLayerInterest(rates[i].max,rates[i].interestRate,numberOfMonths)
           totalInterests += layerInterest;
-        
+          totalInterestLayers.push({
+            totalInterestApplied: layerInterest,
+            interestRate: rates[i].interestRate,
+            title: rates[i].title,
+            min:rates[i].min,
+            max:rates[i].max,
+            deductedAmount:rates[i].max,
+          });
           loanAmount -= rates[i].max;
         } 
         //loan amount minus the max is less than the next layer minium amount
         else {
            layerInterest =calculateLayerInterest((loanAmount - rates[i].min),rates[i].interestRate,numberOfMonths)
           totalInterests += layerInterest;
+          totalInterestLayers.push({
+            totalInterestApplied: layerInterest,
+            interestRate: rates[i].interestRate,
+            title: rates[i].title,
+            min:rates[i].min,
+            max:rates[i].max,
+            deductedAmount:loanAmount - rates[i].min,
+          });
           loanAmount = rates[i].min;
         }
       }
-      //loan layer is less than the layer max amount 
+      //loan amount is less than the layer max amount 
       else {
          layerInterest =calculateLayerInterest(loanAmount,rates[i].interestRate,numberOfMonths)
         totalInterests += layerInterest;
+        totalInterestLayers.push({
+          totalInterestApplied: layerInterest,
+          interestRate: rates[i].interestRate,
+          title: rates[i].title,
+          min:rates[i].min,
+          max:rates[i].max,
+          deductedAmount:loanAmount,
+        });
         loanAmount -= rates[i].max;
       }
-      totalInterestLayers.push({
-        totalApplied: layerInterest,
-        interestRate: rates[i].interestRate,
-        title: rates[i].title,
-        min:rates[i].min,
-        max:rates[i].max
-      });
+      
     } 
   }
   totalAmount += totalInterests;

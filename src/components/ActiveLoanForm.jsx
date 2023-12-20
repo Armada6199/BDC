@@ -44,8 +44,8 @@ function ActiveLoanForm({
     setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
   }
   return (
-    <Grid container gap={1} item md={12}>
-      <Grid container item md={3}>
+    <Grid container item md={12} spacing={4} justifyContent={'space-between'} >
+      <Grid  item md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Current Loan Type
@@ -68,7 +68,6 @@ function ActiveLoanForm({
           </Select>
         </FormControl>
       </Grid>
-
       <Grid item md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
@@ -90,7 +89,6 @@ function ActiveLoanForm({
           </Select>
         </FormControl>
       </Grid>
-
       <Grid item md={3}>
         <TextField
           sx={loanInfoInputStyle}
@@ -117,9 +115,9 @@ function ActiveLoanForm({
           disabled={activeLoan.activeLoanLayer ? false : true}
         />
       </Grid>
-      <Grid container item>
-        <Grid item sx={{ cursor: "pointer" }} md={12}>
-          <Box
+      <Grid container item md={3}>
+        <Grid item md={6}>
+        <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -140,9 +138,8 @@ function ActiveLoanForm({
             <AddIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
           </Box>
         </Grid>
-      </Grid>
-      {index > 0 && (
-        <Grid item sx={{ cursor: "pointer" }} md={1}>
+        {index > 0 && (
+        <Grid item sx={{ cursor: "pointer" }} md={6}>
           <Box
             sx={{
               display: "flex",
@@ -160,6 +157,7 @@ function ActiveLoanForm({
           </Box>
         </Grid>
       )}
+      </Grid>
     </Grid>
   );
 }

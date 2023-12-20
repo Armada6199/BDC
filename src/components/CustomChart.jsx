@@ -7,7 +7,7 @@ ChartJS.register(ArcElement, Tooltip);
 
 export default function CustomChart({totalAppliedLayers}) {
   const appliedInterests=totalAppliedLayers.map(ele=>{
-    return ele.totalApplied;
+    return ele.totalInterestApplied;
   })
   const titles=totalAppliedLayers.map(ele=>{
     return ele.title;
@@ -21,17 +21,19 @@ export default function CustomChart({totalAppliedLayers}) {
         backgroundColor: [
           '#215190',
           '#C4B28F',
-          '#637E76'
+          '#637E76',
+          '#371E30'
         ],
         borderColor: [
           '#215190',
           '#C4B28F',
-          '#637E76'
+          '#637E76',
+          '#371E30'
         ],
         borderWidth: 1,
       },
     ],
   };
   
-  return <Doughnut data={data} />;
+  return <Doughnut height={'100%'} width={'100%'} data={data} />;
 }

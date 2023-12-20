@@ -7,11 +7,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 function ElibiblityLayerTable({layer,title}) {
-    function createData(title, totalApplied, interestRate,min, max) {
-        return { title, totalApplied, interestRate, min, max };
+    function createData(title, totalInterestApplied, interestRate,min, max) {
+        return { title, totalInterestApplied, interestRate, min, max };
       }
       const rows = [
-        createData(title,layer.totalApplied, layer.interestRate,layer.min,layer.max),
+        createData(title,layer.totalInterestApplied, layer.interestRate,layer.min,layer.max),
       ];
   return (
     <TableContainer component={Paper}>
@@ -34,7 +34,7 @@ function ElibiblityLayerTable({layer,title}) {
               <TableCell sx={{fontWeight:'600'}} component="th" scope="row">
                 {row.title}
               </TableCell>
-              <TableCell sx={{fontWeight:'600'}} align="left">{row.totalApplied} JD</TableCell>
+              <TableCell sx={{fontWeight:'600'}} align="left">{row.totalInterestApplied} JD</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.interestRate*100} %</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.min} JD</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.max} JD</TableCell>

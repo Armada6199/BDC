@@ -12,6 +12,7 @@ function StepperComponentsHOC({
   register,
   errors,
   setValue,
+  handleSetEMI
 }) {
   switch (activeStep) {
     case 0:
@@ -23,6 +24,7 @@ function StepperComponentsHOC({
           register={register}
           errors={errors}
           setValue={setValue}
+          handleSetEMI={handleSetEMI}
         />
       );
     case 1:

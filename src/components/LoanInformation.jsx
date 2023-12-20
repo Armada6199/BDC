@@ -22,6 +22,7 @@ function LoanInformation({
   register,
   errors,
   setValue,
+  handleSetEMI
 }) {
   const handleSliderChange = (e) => {
     let { name, value } = e.target;
@@ -37,12 +38,13 @@ function LoanInformation({
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
   };
   const validateGreaterThanSalary = () => {
+    handleSetEMI();
     if (currentLoan.payPerMonth > currentLoan.currentSalary / 2) {
       return "Monthly payment can't be more than half of your salary";
     } else return true;
   };
   return (
-    <Grid container alignItems={'flex-start'} spacing={4} >
+    <Grid container alignItems={'flex-start'} spacing={10} >
       <Grid container  alignItems={"center"} item md={6} gap={4}>
         <Grid container item md={12} gap={4}>
           <Grid item md={12}>
@@ -58,7 +60,7 @@ function LoanInformation({
             />
           </Grid>
         </Grid>
-        <Grid container  item md={10} gap={4}>
+        <Grid container  item md={10} lg={12} gap={4}>
         <Grid container item  >
         <AmountSlider
           currentLoan={currentLoan}
@@ -90,8 +92,8 @@ function LoanInformation({
         />
       </Grid>
         </Grid>
-        <Grid container item md={8}>
-          <FormControl error={errors.isCurrentLoan?.message ? true : false}>
+        <Grid container item md={10} lg={12}>
+          <FormControl fullWidth error={errors.isCurrentLoan?.message ? true : false}>
             <FormLabel id="demo-radio-buttons-group-label">
               Do You have an active current Loan from BDC{" "}
             </FormLabel>
@@ -146,7 +148,7 @@ function LoanInformation({
           </FormControl>
         </Grid>
         {currentLoan.hasPrevLoan && (
-          <Grid container minHeight={"120px"} gap={4} item md={12}>
+          <Grid container item minHeight={"120px"}  gap={4} md={10} lg={12}>
             {currentLoan.activeLoans.map((activeLoan, index) => (
               <ActiveLoanForm
                 key={index}

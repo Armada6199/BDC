@@ -19,53 +19,39 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart - Stacked',
+
+
+const labels = ['First Layer', 'Second Layer', 'Third Layer', 'Forth Layer'];
+
+export function CustomBarChat({totalAppliedLayers,maxAmount}) {
+ const options = {
+  
+    scales: {
+      x: {
+        stacked: true,
+        beginAtZero:true
+      },
+      y: {
+        stacked: true,
+        min:0,
+        max:maxAmount
+      },
     },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-
-
-export function CustomBarChat({totalAppliedLayers}) {
+  };
    const data = {
     labels,
     datasets: [
       {
-        label: 'First',
-        data: totalAppliedLayers.map(ele=>ele.interstRate),
-        backgroundColor: 'rgb(255, 99, 132)',
+        label: 'Total Applied',
+        data:totalAppliedLayers.map(ele=>ele.deductedAmount),
+        backgroundColor: '#215190',
       },
       {
-        label: 'Second',
-        data: totalAppliedLayers.map(ele=>ele.min),
-        backgroundColor: 'rgb(75, 192, 192)',
-      },
-      {
-        label: 'Third',
-        data: totalAppliedLayers.map(ele=>ele.max),
-        backgroundColor: 'rgb(53, 162, 235)',
-      },
-      {
-        label: 'Forth',
-        data: totalAppliedLayers.map(ele=>ele.totalApplied),
-        backgroundColor: 'rgb(53, 162, 235)',
+        label: 'Applied Interests',
+        data: totalAppliedLayers.map(ele=>ele.totalInterestApplied),
+        backgroundColor: '#C4B28F',
       },
     ],
   };
-  return <Bar options={options} data={data} />;
+  return <Bar height={'100%'} width={'100%'} options={options} data={data} />;
 }

@@ -30,9 +30,9 @@ function MonthsSlider({
       }
     >
       <Grid container item md={12}>
-        <Grid container item gap={1} justifyContent={"space-between"} md={12}>
+        <Grid container justifyContent={"space-between"} item md={12}>
           <Grid item md={6}>
-            <Typography variant="h5" fontWeight={"600"}>
+            <Typography fontWeight={"600"} variant="h5">
               For so long:
             </Typography>
           </Grid>
@@ -44,20 +44,28 @@ function MonthsSlider({
                 required: currentLoan.numberOfMonthst
                   ? false
                   : "Kindly Choose loan amount",
+                min: {
+                  value: currentLoan.minMonths,
+                  message: "Minimum Month Term is 12",
+                },
+                max: {
+                  value: currentLoan.maxMonths,
+                  message: `Maximum Month Term is ${currentLoan.maxMonths}`,
+                },
               })}
               onChange={(e) => handleInputFieldChange(e)}
+              type="number"
+              inputProps={{
+                min: currentLoan.minAmount,
+                max: currentLoan.maxMonths,
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
                     <EditIcon sx={{ color: "#C4B28F" }} />
                   </InputAdornment>
                 ),
-                value: currentLoan.numberOfMonths?currentLoan.numberOfMonths:currentLoan.maxMonths/2,
-              }}
-              type="number"
-              inputProps={{
-                min: currentLoan.minMonths,
-                max: currentLoan.maxMonths,
+                value: currentLoan.numberOfMonths
               }}
               variant="outlined"
             />
@@ -75,34 +83,43 @@ function MonthsSlider({
                 required: currentLoan.numberOfMonths
                   ? false
                   : "Kindly Choose loan amount",
-                onChange: (e) => handleSliderChange(e), 
+                min: {
+                  value: currentLoan.minMonths,
+                  message: "Minimum Month Term is 12",
+                },
+                max: {
+                  value: currentLoan.maxMonths,
+                  message: `Maximum Month Term is ${currentLoan.maxMonths}`,
+                },
+                onChange: (e) => handleSliderChange(e),
               })}
               value={
-              currentLoan.numberOfMonths
-                ? currentLoan.numberOfMonths
-                : currentLoan.maxMonths / 2}
+                currentLoan.numberOfMonths
+                  ? currentLoan.numberOfMonths
+                  : currentLoan.maxMonths / 2
+              }
             />
           </Grid>
-        </Grid>
-        <Grid container item justifyContent={"space-between"}>
-          <Grid item>
-            <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
-              {currentLoan.minMonths}
-            </Typography>
-          </Grid>
+          <Grid container item justifyContent={"space-between"}>
+      <Grid item>
+        <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
+          {currentLoan.minMonths}
+        </Typography>
+      </Grid>
 
-          <Grid item md={5}>
-            <FormHelperText>
-              {" "}
-              {errors.numberOfMonths_Input?.message}
-            </FormHelperText>
-          </Grid>
-
-          <Grid item>
-            <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
-              {currentLoan.maxMonths}
-            </Typography>
-          </Grid>
+      <Grid item md={5}>
+      {console.log(errors)}
+        <FormHelperText sx={{color:'red'}}>
+          {" "}
+          {errors.numberOfMonths_Input?.message}
+        </FormHelperText>
+      </Grid>
+      <Grid item>
+        <Typography variant="body1" fontWeight={"bold"} color={"darkgray"}>
+          {currentLoan.maxMonths}
+        </Typography>
+      </Grid>
+    </Grid>
         </Grid>
       </Grid>
     </FormControl>
