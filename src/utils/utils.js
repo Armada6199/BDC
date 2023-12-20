@@ -1,4 +1,4 @@
-const activeLoansDeductions=[];
+let activeLoansDeductions=[];
 export default function calculateEMI(loanAmount, rates, numberOfMonths,currentLoanTitle,activeLoans=[]) {
   let totalInterests = 0;
   let totalAmount = loanAmount;
@@ -6,11 +6,12 @@ export default function calculateEMI(loanAmount, rates, numberOfMonths,currentLo
   for (let i = 0; i < rates.length; i++) {
     let layerInterest=0;
     // check if there is an active loan
-    if(activeLoans.length>0){
-      loanAmount=handleCalculateActiveLoans(rates[i],loanAmount,activeLoans,currentLoanTitle);
-      }
       if (loanAmount > 0) {
       //loan amount is more than the layer max amount 
+      if(activeLoans.length>0){
+        rates[i].max=handleCalculateActiveLoans(rates[i],activeLoans,currentLoanTitle);
+        console.log(i)
+        }
       if (loanAmount > rates[i].max) {
         if (loanAmount - rates[i].max > rates[i].min) {
            layerInterest=calculateLayerInterest(rates[i].max,rates[i].interestRate,numberOfMonths)
@@ -62,14 +63,18 @@ export default function calculateEMI(loanAmount, rates, numberOfMonths,currentLo
 function calculateLayerInterest(amount,rate,numberOfMonths){
   return ((amount * rate) / 12) * numberOfMonths;
 };
-function handleCalculateActiveLoans(layer,loanAmount,activeLoans,currentLoanTitle){
-  for(let i =0;i<activeLoans.length;i++){
-    if(activeLoans[i].activeLoanType===currentLoanTitle&&layer.title==activeLoans[i].activeLoanLayer){
-      const totalDeduction=Number(activeLoans[i].activeLoanAmount);
-      loanAmount+=Number(activeLoans[i].activeLoanAmount);
-      activeLoansDeductions[activeLoans[i].activeLoanType]=totalDeduction;
-      activeLoansDeductions[activeLoans[i].activeLoanLayer]=layer.title;
-    }
+function handleCalculateActiveLoans(layer,activeLoans,currentLoanTitle){
+console.log(layer)
+  try {
+  for(let j =0;j<activeLoans.length;j++){
+    let deductedAmount=0;
+    if(activeLoans[j].activeLoanType===currentLoanTitle&&layer.title==activeLoans[j].activeLoanLayer){
+      deductedAmount=layer.max-activeLoans[j].activeLoanAmount;
+      activeLoansDeductions.push({activeDeductedType:currentLoanTitle,activeDeductedAmount:deductedAmount});
+      return deductedAmount;
+    }else return layer.max;
   };
-  return loanAmount;
+  } catch (error) {
+    throw new Error(error)
+  }
 }
