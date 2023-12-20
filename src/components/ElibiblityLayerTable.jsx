@@ -23,6 +23,8 @@ function ElibiblityLayerTable({layer,title}) {
             <TableCell sx={{fontWeight:'700'}} align="left">Layer Interest Rate</TableCell>
             <TableCell sx={{fontWeight:'700'}} align="left">Minimum  Amount</TableCell>
             <TableCell sx={{fontWeight:'700'}} align="left">Maximum  Amount</TableCell>
+            <TableCell sx={{fontWeight:'700'}} align="left">Current Loans Deductions</TableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -34,10 +36,11 @@ function ElibiblityLayerTable({layer,title}) {
               <TableCell sx={{fontWeight:'600'}} component="th" scope="row">
                 {row.title}
               </TableCell>
-              <TableCell sx={{fontWeight:'600'}} align="left">{row.totalInterestApplied} JD</TableCell>
+              <TableCell sx={{fontWeight:'600'}} align="left">{row.totalInterestApplied.toFixed(3)} JD</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.interestRate*100} %</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.min} JD</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.max} JD</TableCell>
+              <TableCell sx={{fontWeight:'600'}} align="left">0 JD</TableCell>
             </TableRow>
           ))}
         </TableBody>

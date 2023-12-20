@@ -8,7 +8,6 @@ import { loanDetailsData } from "./assets/loans.jsx";
 import { useForm } from "react-hook-form";
 import calculateEMI from "./utils/utils.js";
 import StepperNavigationButtons from "./components/StepperNavigationButtons.jsx";
-import { glassmorphismStyle } from "./assets/styles.js";
 const steps = [
   "1. Load information",
   "2. Loan Eligibility ",
@@ -19,12 +18,6 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [loans, setLoans] = React.useState(loanDetailsData);
   const [currentLoan, setCurrentLoan] = React.useState(loans[1]);
-  // function setNavigation(){
-  //   if(document.body.scrollHeight>=window.scrollY + window.innerHeight){
-  //     setNavigationFixed(true)
-  //   }else setNavigationFixed(false);
-  // }
-  // window.addEventListener('scroll',setNavigation)
   const {
     register,
     handleSubmit,
@@ -68,6 +61,8 @@ export default function HorizontalLinearStepper() {
       setCurrentLoan((prev) => ({ ...prev, formData }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
+      console.log(formData);
+      console.log(currentLoan);
       ///submit data  here
       // console.log(formData);
     }
@@ -86,7 +81,8 @@ export default function HorizontalLinearStepper() {
   return (
     <form noValidate onSubmit={handleSubmit(handleNext)}>
     <Grid container  minHeight={'100vh'}  bgcolor={"#F1F3F4"}>
-      <Grid container minHeight={'20vh'} item md={12} p={4} gap={2}>
+      <Grid container minHeight=
+      {'20vh'} item md={12} p={4} gap={2}>
         <Typography variant="h4">Apply Loan</Typography>
         <Grid item md={12} sx={{ width: "100%" }}>
           <Stepper activeStep={activeStep}>

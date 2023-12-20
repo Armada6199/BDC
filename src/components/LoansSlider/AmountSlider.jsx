@@ -14,7 +14,6 @@ function AmountSlider({
   register,
   currentLoan,
   handleSliderChange,
-  handleInputFieldChange,
   errors,
 }) {
   const maxAmount=currentLoan.maxAmount(currentLoan.intrestRates)
@@ -45,7 +44,7 @@ function AmountSlider({
                     message: `Maximum Loan Amount is ${maxAmount}`, 
                   },
               })}
-              onChange={(e) => handleInputFieldChange(e)}
+              onChange={(e) => handleSliderChange(e)}
               type="number"
               inputProps={{
                 min: currentLoan.minAmount,

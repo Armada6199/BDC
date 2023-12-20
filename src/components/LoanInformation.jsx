@@ -28,13 +28,7 @@ function LoanInformation({
     let { name, value } = e.target;
     setValue(name, value);
     name = name.split("_")[0];
-    setCurrentLoan((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleInputFieldChange = (e) => {
-    let { name, value } = e.target;
-    
-    setValue(name, value);
-    name = name.split("_")[0];
+    console.log(name,value)
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
   };
   const validateGreaterThanSalary = () => {
@@ -66,7 +60,6 @@ function LoanInformation({
           currentLoan={currentLoan}
           handleSliderChange={handleSliderChange}
           validateGreaterThanSalary={validateGreaterThanSalary}
-          handleInputFieldChange={handleInputFieldChange}
           register={register}
           errors={errors}
         />
@@ -76,7 +69,6 @@ function LoanInformation({
           currentLoan={currentLoan}
           handleSliderChange={handleSliderChange}
           validateGreaterThanSalary={validateGreaterThanSalary}
-          handleInputFieldChange={handleInputFieldChange}
           register={register}
           errors={errors}
         />
@@ -86,7 +78,6 @@ function LoanInformation({
            currentLoan={currentLoan}
            handleSliderChange={handleSliderChange}
            validateGreaterThanSalary={validateGreaterThanSalary}
-           handleInputFieldChange={handleInputFieldChange}
            register={register}
            errors={errors}
         />

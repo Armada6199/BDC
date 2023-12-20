@@ -1,24 +1,17 @@
-import { Grid, TextField, Typography, Button } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useForm } from "react-hook-form";
 
-function PersonalInformation({ handleNext, handleBack, register, errors }) {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
+function PersonalInformation({  register, errors }) {
+
   const personalInformationInputStyle = {
     width: "100%",
   };
   return (
-    <Grid container minHeight={"70vh"} gap={4}>
-      <Grid container justifyContent={"space-between"} item spacing={4}>
-        <Grid item md={12}>
-          <Typography variant="h5" fontWeight="">
-            Employee Information{" "}
-          </Typography>
-        </Grid>
+    <Grid container item  gap={0} >
+      <Grid   item md={12}>
+    <Typography variant="h5" fontWeight={'600'}>Personal Information</Typography>
+      </Grid>
+        <Grid container  item spacing={2} >
         <Grid item md={6}>
           <Typography variant="body1" fontWeight={"600"}>
             Employee Name
@@ -123,7 +116,7 @@ function PersonalInformation({ handleNext, handleBack, register, errors }) {
             })}
           />
         </Grid>
-      </Grid>
+        </Grid>
     </Grid>
   );
 }

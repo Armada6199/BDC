@@ -15,7 +15,6 @@ function CurrentSalarySlider({
   register,
   currentLoan,
   handleSliderChange,
-  handleInputFieldChange,
   errors,
   validateGreaterThanSalary
 }) {
@@ -40,7 +39,7 @@ function CurrentSalarySlider({
               ),
             }}
             {...register("currentSalary_Input", {
-                onChange: (e) => handleInputFieldChange(e),
+                onChange: (e) => handleSliderChange(e),
                 required: currentLoan.currentSalary==0
                 ?"Kindly Choose Salary amount"
                 : "Kindly Choose Salary amount",

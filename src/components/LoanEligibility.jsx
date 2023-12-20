@@ -6,7 +6,7 @@ import {
   Button,
   Collapse,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import InfoIcon from "@mui/icons-material/Info";
 import CustomChart from "./CustomChart";
 import { glassmorphismStyle } from "../assets/styles";

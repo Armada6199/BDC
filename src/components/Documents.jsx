@@ -10,9 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useForm } from "react-hook-form";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-function Documents({ handleBack, handleNext, register, errors }) {
+function Documents({  register, errors }) {
   // const {
   //   register,
   //   handleSubmit,
