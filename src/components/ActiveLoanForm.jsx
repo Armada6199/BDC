@@ -44,8 +44,8 @@ function ActiveLoanForm({
     setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
   }
   return (
-    <Grid container item md={12} spacing={4} justifyContent={'space-between'} >
-      <Grid  item md={3}>
+    <Grid container item md={12} spacing={4} justifyContent={"space-between"}>
+      <Grid item md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Current Loan Type
@@ -58,13 +58,10 @@ function ActiveLoanForm({
             onChange={(e) => handleLoanInputChange(e)}
             defaultValue={"none"}
           >
-            <MenuItem value={"home"}>Home Loan</MenuItem>
-            <MenuItem value={"land"}>Land Loan</MenuItem>
-            <MenuItem value={"car"}>Car Loan</MenuItem>
-            <MenuItem value={"personal"}>Personal</MenuItem>
-            <MenuItem value={"Housing Loan  with SLC"}>
-              Housing Loan with SLC
-            </MenuItem>
+            <MenuItem value={"Home Loan"}>Home Loan</MenuItem>
+            <MenuItem value={"Land Loan"}>Land Loan</MenuItem>
+            <MenuItem value={"Car Loan"}>Car Loan</MenuItem>
+            <MenuItem value={"Personal Loan"}>Personal</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -82,10 +79,10 @@ function ActiveLoanForm({
             defaultValue={"none"}
             disabled={activeLoan.activeLoanType ? false : true}
           >
-            <MenuItem value={"first"}>First Layer</MenuItem>
-            <MenuItem value={"second"}>Second Layer</MenuItem>
-            <MenuItem value={"third"}>Third Layer</MenuItem>
-            <MenuItem value={"forth"}>Forth Layer</MenuItem>
+            <MenuItem value={"First Layer"}>First Layer</MenuItem>
+            <MenuItem value={"Second Layer"}>Second Layer</MenuItem>
+            <MenuItem value={"Third Layer"}>Third Layer</MenuItem>
+            <MenuItem value={"Forth Layer"}>Forth Layer</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -117,7 +114,7 @@ function ActiveLoanForm({
       </Grid>
       <Grid container item md={3}>
         <Grid item md={6}>
-        <Box
+          <Box
             sx={{
               display: "flex",
               justifyContent: "center",
@@ -139,24 +136,24 @@ function ActiveLoanForm({
           </Box>
         </Grid>
         {index > 0 && (
-        <Grid item sx={{ cursor: "pointer" }} md={6}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "5px",
-              width: 52,
-              height: 54,
-              backgroundColor: "#EAEAEA",
-              cursor: "pointer",
-            }}
-            onClick={() => handleDeleteActiveLoan()}
-          >
-            <DeleteIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
-          </Box>
-        </Grid>
-      )}
+          <Grid item sx={{ cursor: "pointer" }} md={6}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "5px",
+                width: 52,
+                height: 54,
+                backgroundColor: "#EAEAEA",
+                cursor: "pointer",
+              }}
+              onClick={() => handleDeleteActiveLoan()}
+            >
+              <DeleteIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

@@ -50,6 +50,7 @@ export const loanDetailsData = [
     socialSecurityDBR: 0.6,
     Minimumtenor: 12,
     totalAppliedLayers: [],
+    activeLoansDeductions:[],
     loadIcon: (props) => <HouseOutlinedIcon sx={props} />,
   },
   {
@@ -99,6 +100,7 @@ export const loanDetailsData = [
     hasPrevLoan: false,
     Minimumtenor: 12,
     totalAppliedLayers: [],
+    activeLoansDeductions:[],
     loadIcon: (props) => <HouseOutlinedIcon sx={props} />,
   },
   {
@@ -148,6 +150,7 @@ export const loanDetailsData = [
     Minimumtenor: 12,
     socialSecurityDBR: 0.6,
     totalAppliedLayers: [],
+    activeLoansDeductions:[],
     loadIcon: (props) => <DirectionsCarFilledOutlinedIcon sx={props} />,
   },
   // {
@@ -231,6 +234,7 @@ export const loanDetailsData = [
     totalInterest: 0,
     normalDBR: 0.5,
     socialSecurityDBR: 0.6,
+    activeLoansDeductions:[],
     activeLoans: [
       { activeLoanAmount: null, activeLoanLayer: null, activeLoanType: null },
     ],

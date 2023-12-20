@@ -34,13 +34,15 @@ export default function HorizontalLinearStepper() {
     },
   });
   function handleSetEMI(){
-    let { loanAmount, activeLoanAmount = 0, numberOfMonths,intrestRates } = currentLoan;
+    let { loanAmount, activeLoanAmount = 0, numberOfMonths,intrestRates,activeLoans } = currentLoan;
     loanAmount = Number(loanAmount);
     activeLoanAmount = Number(activeLoanAmount);
-    const { totalAmount, totalInterests, totalInterestLayers } = calculateEMI(
+    const { totalAmount, totalInterests, totalInterestLayers ,activeLoansDeductions} = calculateEMI(
       loanAmount + activeLoanAmount,
       intrestRates,
-      numberOfMonths
+      numberOfMonths,
+      currentLoan.title,
+      activeLoans,
     );
   setCurrentLoan((prev) => ({
     ...prev,
@@ -50,6 +52,7 @@ export default function HorizontalLinearStepper() {
     interestPayable: totalInterests,
     payPerMonth: totalAmount / Number(numberOfMonths),
     totalAppliedLayers: totalInterestLayers,
+    activeLoansDeductions:activeLoansDeductions,
   }));
   }
   const handleNext = (formData) => {
@@ -61,8 +64,6 @@ export default function HorizontalLinearStepper() {
       setCurrentLoan((prev) => ({ ...prev, formData }));
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
-      console.log(formData);
-      console.log(currentLoan);
       ///submit data  here
       // console.log(formData);
     }

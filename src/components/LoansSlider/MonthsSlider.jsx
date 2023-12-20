@@ -96,7 +96,6 @@ function MonthsSlider({
       </Grid>
 
       <Grid item md={5}>
-      {console.log(errors)}
         <FormHelperText sx={{color:'red'}}>
           {" "}
           {errors.numberOfMonths_Input?.message}

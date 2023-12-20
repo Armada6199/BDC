@@ -1,10 +1,15 @@
-export default function calculateEMI(loanAmount, rates, numberOfMonths) {
+const activeLoansDeductions=[];
+export default function calculateEMI(loanAmount, rates, numberOfMonths,currentLoanTitle,activeLoans=[]) {
   let totalInterests = 0;
   let totalAmount = loanAmount;
   const totalInterestLayers = [];
   for (let i = 0; i < rates.length; i++) {
     let layerInterest=0;
-    if (loanAmount > 0) {
+    // check if there is an active loan
+    if(activeLoans.length>0){
+      loanAmount=handleCalculateActiveLoans(rates[i],loanAmount,activeLoans,currentLoanTitle);
+      }
+      if (loanAmount > 0) {
       //loan amount is more than the layer max amount 
       if (loanAmount > rates[i].max) {
         if (loanAmount - rates[i].max > rates[i].min) {
@@ -49,12 +54,22 @@ export default function calculateEMI(loanAmount, rates, numberOfMonths) {
         });
         loanAmount -= rates[i].max;
       }
-      
     } 
   }
   totalAmount += totalInterests;
-  return { totalAmount, totalInterests, totalInterestLayers };
+  return { totalAmount, totalInterests, totalInterestLayers,activeLoansDeductions };
 }
 function calculateLayerInterest(amount,rate,numberOfMonths){
   return ((amount * rate) / 12) * numberOfMonths;
+};
+function handleCalculateActiveLoans(layer,loanAmount,activeLoans,currentLoanTitle){
+  for(let i =0;i<activeLoans.length;i++){
+    if(activeLoans[i].activeLoanType===currentLoanTitle&&layer.title==activeLoans[i].activeLoanLayer){
+      const totalDeduction=Number(activeLoans[i].activeLoanAmount);
+      loanAmount+=Number(activeLoans[i].activeLoanAmount);
+      activeLoansDeductions[activeLoans[i].activeLoanType]=totalDeduction;
+      activeLoansDeductions[activeLoans[i].activeLoanLayer]=layer.title;
+    }
+  };
+  return loanAmount;
 }

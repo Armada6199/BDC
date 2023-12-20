@@ -6,12 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-function ElibiblityLayerTable({layer,title}) {
-    function createData(title, totalInterestApplied, interestRate,min, max) {
-        return { title, totalInterestApplied, interestRate, min, max };
+function ElibiblityLayerTable({layer,title,activeLoan}) {
+    function createData(title, totalInterestApplied, interestRate,min, max,activeLoan) {
+        return { title, totalInterestApplied, interestRate, min, max,activeLoan };
       }
       const rows = [
-        createData(title,layer.totalInterestApplied, layer.interestRate,layer.min,layer.max),
+        createData(title,layer.totalInterestApplied, layer.interestRate,layer.min,layer.max,activeLoan),
       ];
   return (
     <TableContainer component={Paper}>
@@ -40,7 +40,8 @@ function ElibiblityLayerTable({layer,title}) {
               <TableCell sx={{fontWeight:'600'}} align="left">{row.interestRate*100} %</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.min} JD</TableCell>
               <TableCell sx={{fontWeight:'600'}} align="left">{row.max} JD</TableCell>
-              <TableCell sx={{fontWeight:'600'}} align="left">0 JD</TableCell>
+              {console.log()}
+              <TableCell sx={{fontWeight:'600'}} align="left">{activeLoan[title]&&activeLoan[layer.title]===layer.title?`${activeLoan[title]} JD`:'0 JD'}</TableCell>
             </TableRow>
           ))}
         </TableBody>
