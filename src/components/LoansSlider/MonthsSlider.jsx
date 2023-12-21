@@ -16,6 +16,7 @@ function MonthsSlider({
   errors,
   currentLoan,
   handleSliderChange,
+  validateGreaterThanSalary
 }) {
   return (
     <FormControl
@@ -50,6 +51,7 @@ function MonthsSlider({
                   value: currentLoan.maxMonths,
                   message: `Maximum Month Term is ${currentLoan.maxMonths}`,
                 },
+                validate:(value)=>validateGreaterThanSalary(value,'months')
               })}
               onChange={(e) => handleSliderChange(e)}
               type="number"
@@ -82,6 +84,7 @@ function MonthsSlider({
                     ?false 
                     : "Kindly Choose Number of Months",
                   onChange: (e) => handleSliderChange(e),
+                  validate:(value)=>validateGreaterThanSalary(value,'months')
                 })}
                 value={
                   currentLoan.numberOfMonths ? currentLoan.numberOfMonths : currentLoan.maxMonths / 2

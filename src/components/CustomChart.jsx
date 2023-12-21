@@ -35,5 +35,5 @@ export default function CustomChart({totalAppliedLayers}) {
     ],
   };
   
-  return <Doughnut height={'100%'} width={'100%'} data={data} />;
+  return <Doughnut height={'100%'} width={'100%'}  data={data} />;
 }

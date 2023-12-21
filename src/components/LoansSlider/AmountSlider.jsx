@@ -15,6 +15,7 @@ function AmountSlider({
   currentLoan,
   handleSliderChange,
   errors,
+  validateGreaterThanSalary
 }) {
   const maxAmount=currentLoan.maxAmount(currentLoan.intrestRates)
   return (  
@@ -43,6 +44,7 @@ function AmountSlider({
                     value: maxAmount,
                     message: `Maximum Loan Amount is ${maxAmount}`, 
                   },
+                  validate:validateGreaterThanSalary
               })}
               onChange={(e) => handleSliderChange(e)}
               type="number"
@@ -75,6 +77,7 @@ function AmountSlider({
                   ?false 
                   : "Kindly Choose loan amount",
                 onChange: (e) => handleSliderChange(e),
+                validate:validateGreaterThanSalary
               })}
               value={
                 currentLoan.loanAmount ? currentLoan.loanAmount : maxAmount / 2

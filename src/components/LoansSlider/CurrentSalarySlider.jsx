@@ -47,13 +47,13 @@ function CurrentSalarySlider({
                   value: 250,
                   message: 'Minimum Eligible Salary is 250 JD', 
                 },
-                validate:validateGreaterThanSalary,
+                validate:validateGreaterThanSalary
             })} 
             type="number"
             step={50}
             inputProps={{
                 min: 250,
-                max: 100_00,
+                max: 150_00,
             }}
             value={currentLoan.currentSalary}
             variant="outlined"
@@ -62,7 +62,7 @@ function CurrentSalarySlider({
         <Grid item md={12}>
           <Slider
             min={250}
-            max={100_00}
+            max={150_00}
             valueLabelDisplay="auto"
             color="secondary"
             size="medium"
@@ -76,7 +76,7 @@ function CurrentSalarySlider({
                 validate:validateGreaterThanSalary,
             })}
             value={
-                currentLoan.currentSalary ? currentLoan.currentSalary : 10000 / 2
+                currentLoan.currentSalary ? currentLoan.currentSalary : 150_00 / 2
             }
             />
         </Grid>

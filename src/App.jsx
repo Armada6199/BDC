@@ -24,6 +24,7 @@ export default function HorizontalLinearStepper() {
     formState: { errors },
     setValue
   } = useForm({
+    mode:"onBlur",
     defaultValues: {
       loanAmount: null,
       numberOfMonths: null,

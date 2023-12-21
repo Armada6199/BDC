@@ -15,6 +15,7 @@ import LoanTypes from "./LoanTypes";
 import CurrentSalarySlider from "./LoansSlider/CurrentSalarySlider";
 import MonthsSlider from "./LoansSlider/MonthsSlider";
 import AmountSlider from "./LoansSlider/AmountSlider";
+import calculateEMI from "../utils/utils";
 function LoanInformation({
   currentLoan,
   setCurrentLoan,
@@ -30,11 +31,54 @@ function LoanInformation({
     name = name.split("_")[0];
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
   };
-  const validateGreaterThanSalary = () => {
-    handleSetEMI();
-    if (currentLoan.payPerMonth > currentLoan.currentSalary / 2) {
-      return "Monthly payment can't be more than half of your salary";
-    } else return true;
+  const validateGreaterThanSalary = (value,type) => {
+    let {
+      loanAmount,
+      numberOfMonths,
+      intrestRates,
+      activeLoans,
+      currentSalary,
+      maxMonths
+    } = currentLoan;
+    let {
+      payPerMonth,
+      totalAmount,
+      totalInterests
+    } = calculateEMI(
+      loanAmount,
+      intrestRates,
+      numberOfMonths,
+      currentLoan.title,
+      activeLoans
+    );
+    totalAmount+=totalInterests;
+    const isEligible=payPerMonth < currentSalary / 2;
+    const halfSalary=currentSalary/2
+    switch(type){
+      case'months':{
+        if(isEligible){
+          return true;
+        }else{
+          // totalAmount/halfSalary;
+          // console.log(first)
+          for(let i =numberOfMonths;i<maxMonths;i++){
+            if(totalAmount/i<=halfSalary){
+              console.log(`found pay per month is ${i} and amount is ${totalAmount/i} for loan amount of${totalAmount} and half of your salary is ${currentSalary/2}`);
+              return `Minimum Term For your request is ${i}`;
+            }
+        }        }
+        return 'You Arent Eligiable for this Amount'
+      }
+      case 'amount':{
+
+      }
+      case 'salary':{
+
+      }
+    }
+    //   if (isEligible) {
+    //   return "Monthly payment can't be more than half of your salary";
+    // } else return true;
   };
   return (
     <Grid container alignItems={"flex-start"} spacing={10}>
@@ -82,11 +126,10 @@ function LoanInformation({
             />
           </Grid>
         </Grid>
-        <Grid container  item md={10} lg={12}>
+        <Grid container item md={10} lg={12}>
           <FormControl
             fullWidth
             error={errors.isCurrentLoan?.message ? true : false}
-            
           >
             <FormLabel id="demo-radio-buttons-group-label">
               Do You have an active current Loan from BDC{" "}
@@ -103,10 +146,7 @@ function LoanInformation({
                 })
               }
             >
-              <Grid
-                item
-                md={2}
-              >
+              <Grid item md={2}>
                 <FormControlLabel
                   value={"yes"}
                   control={
@@ -126,15 +166,12 @@ function LoanInformation({
                   label="Yes"
                 />
               </Grid>
-              <Grid
-                item
-                md={2}
-              >
+              <Grid item md={2}>
                 <FormControlLabel
                   value={"no"}
                   control={
                     <Radio
-                    size="small"
+                      size="small"
                       {...register("isCurrentLoan", {
                         required: "This field is required",
                       })}

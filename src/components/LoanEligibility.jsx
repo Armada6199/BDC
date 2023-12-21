@@ -69,14 +69,15 @@ function LoanEligibility({ currentLoan }) {
           <Typography variant="h4">Loan Details</Typography>
           <InfoIcon sx={{ width: "31px", height: "41px", color: "#C4B28F" }} />
         </Grid> 
+     
         {currentLoan.totalAppliedLayers.map((layer, index) => (
           <Grid container item gap={4}>
             <Grid item md={12}>
-          <Typography variant="h6">{layer.title}</Typography>
+          <Typography variant="h5">{layer.title}</Typography>
             </Grid>
             <Grid item md={12}>
               {/* {console.log(currentLoan.activeLoansDeductions)} */}
-            <ElibiblityLayerTable layer={layer} activeLoan={currentLoan.activeLoansDeductions} title={currentLoan.title}/>
+            <ElibiblityLayerTable layer={layer} index={index} activeLoansDeductions={currentLoan.activeLoansDeductions} title={currentLoan.title}/>
               </Grid>
           </Grid>
         ))}
@@ -89,7 +90,7 @@ function LoanEligibility({ currentLoan }) {
         md={4}
         gap={12}
       >
-          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'} minHeight={'45%'}  gap={4} item md={12}  p={4}>
+          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'} maxHeight={'45%'}  gap={4} item md={12}  p={4}>
             <Grid item md={12}>
           <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} />
             </Grid>
