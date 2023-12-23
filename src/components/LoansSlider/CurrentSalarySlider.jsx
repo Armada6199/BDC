@@ -47,7 +47,6 @@ function CurrentSalarySlider({
                   value: 250,
                   message: 'Minimum Eligible Salary is 250 JD', 
                 },
-                validate:validateGreaterThanSalary
             })} 
             type="number"
             step={50}
@@ -73,7 +72,6 @@ function CurrentSalarySlider({
                 ?"Kindly Choose Salary amount"
                 : "Kindly Choose Salary amount",
                 onChange: (e) => handleSliderChange(e),
-                validate:validateGreaterThanSalary,
             })}
             value={
                 currentLoan.currentSalary ? currentLoan.currentSalary : 150_00 / 2

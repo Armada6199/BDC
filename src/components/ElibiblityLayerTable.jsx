@@ -6,51 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-function ElibiblityLayerTable({ layer, title, activeLoansDeductions }) {
-  const layerDeductionSum={"First Layer":0,"Second Layer":0,"Third Layer":0,"Forth Layer":0}
+function ElibiblityLayerTable({ layer, title, activeLoansDeductions,index }) {
+  const layerDeductionSum={[layer.title]:0}
   activeLoansDeductions.forEach(e=>{
-   layerDeductionSum[e.deductionLayer]=+ e.totalDeductedAmount;
+   layerDeductionSum[e.activeDeductedLayer]=+ e.activeDeductedAmount;
   });
-  // function createLayerData(
-  //   title,
-  //   totalInterestApplied,
-  //   interestRate,
-  //   min,
-  //   max,
-  //   deductedAmount
-  // ) {
-  //   return {
-  //     title,
-  //     totalInterestApplied,
-  //     interestRate,
-  //     min,
-  //     max,
-  //     deductedAmount,
-  //   };
-  // }
-
-  // function createActiveLoansData() {
-  //   return {
-  //     title,
-  //     totalInterestApplied,
-  //     interestRate,
-  //     min,
-  //     max,
-  //     deductedAmount,
-  //   };
-  // }
-  // const layerData = [
-  //   createLayerData(
-  //     title,
-  //     layer.totalInterestApplied,
-  //     layer.interestRate,
-  //     layer.min,
-  //     layer.max,
-  //     layer.deductedAmount
-  //   ),
-
-  // ];
-  // const activeLoansData = [createActiveLoansData()];
   return (
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -77,11 +37,11 @@ function ElibiblityLayerTable({ layer, title, activeLoansDeductions }) {
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center">{layer.totalInterestApplied.toFixed(3)}</TableCell>
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center"> {layer.interestRate*100} %</TableCell>
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center">{layer.min+" "} - {" "+layer.max}</TableCell>
-        <TableCell sx={{fontWeight:'600',color:'red'}} rowSpan={2} align="center" >{layerDeductionSum[layer.title]}</TableCell>
+        <TableCell sx={{fontWeight:'600',color:'red'}} rowSpan={2} align="center" >{activeLoansDeductions[index]?.activeDeductedAmount} JD</TableCell>
         {/* <TableCell sx={{fontWeight:'600'}} align="left">{activeLoansDeductions[title]&&activeLoansDeductions[layer.title]===layer.title?`${activeLoansDeductions[title]} JD`:'0 JD'}</TableCell> */}
       </TableRow>
       {activeLoansDeductions.map(activeDeduction=>(
-     activeDeduction.deductionLayer===layer.title?  
+     activeDeduction.activeDeductedLayer===layer.title?  
    <TableRow
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >

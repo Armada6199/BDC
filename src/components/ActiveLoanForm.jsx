@@ -38,14 +38,15 @@ function ActiveLoanForm({
     setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
   }
   function handleDeleteActiveLoan() {
-    const newActiveLoans = currentLoan.activeLoans;
-    newActiveLoans.splice(index, 1);
-    console.log(newActiveLoans);
-    setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
+    if(index>0){
+      const newActiveLoans = currentLoan.activeLoans;
+      newActiveLoans.splice(index, 1);
+      setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
+    }
   }
   return (
-    <Grid container item md={12} spacing={4} justifyContent={"space-between"}>
-      <Grid item md={3}>
+    <Grid container item md={12} spacing={4}  >
+      <Grid item sm={12} md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Current Loan Type
@@ -65,7 +66,7 @@ function ActiveLoanForm({
           </Select>
         </FormControl>
       </Grid>
-      <Grid item md={3}>
+      <Grid item sm={12} md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Current Loan Layer
@@ -86,7 +87,7 @@ function ActiveLoanForm({
           </Select>
         </FormControl>
       </Grid>
-      <Grid item md={3}>
+      <Grid item sm={12} md={3}>
         <TextField
           sx={loanInfoInputStyle}
           fullWidth
@@ -112,7 +113,7 @@ function ActiveLoanForm({
           disabled={activeLoan.activeLoanLayer ? false : true}
         />
       </Grid>
-      <Grid container item md={3}>
+      <Grid container item justifyContent={'flex-end'} sm={12}  md={3}>
         <Grid item md={6}>
           <Box
             sx={{
@@ -135,8 +136,10 @@ function ActiveLoanForm({
             <AddIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
           </Box>
         </Grid>
-        {index > 0 && (
-          <Grid item sx={{ cursor: "pointer" }} md={6}>
+          <Grid item sx={{ cursor: "pointer" }} onClick={()=> index===0&&setCurrentLoan({
+                  ...currentLoan,
+                  hasPrevLoan:false,
+                })}   md={6}>
             <Box
               sx={{
                 display: "flex",
@@ -153,7 +156,6 @@ function ActiveLoanForm({
               <DeleteIcon sx={{ fontSize: 42, color: "#C4B28F" }} />
             </Box>
           </Grid>
-        )}
       </Grid>
     </Grid>
   );
