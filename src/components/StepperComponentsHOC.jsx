@@ -1,8 +1,8 @@
 import React from "react";
-import LoanInformation from "./LoanInformation";
-import LoanEligibility from "./LoanEligibility";
-import PersonalInformation from "./PersonalInformation";
-import Documents from "./Documents";
+import LoanInformation from "./stepperPages/LoanInformation";
+import LoanEligibility from "./stepperPages/LoanEligibility";
+import PersonalInformation from "./stepperPages/PersonalInformation";
+import Documents from "./stepperPages/Documents";
 
 function StepperComponentsHOC({
   activeStep,

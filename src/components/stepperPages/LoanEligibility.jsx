@@ -6,10 +6,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import InfoIcon from "@mui/icons-material/Info";
-import CustomChart from "./CustomChart";
-import { glassmorphismStyle } from "../assets/styles";
-import ElibiblityLayerTable from "./ElibiblityLayerTable";
-import { CustomBarChat } from "./CustomBarChat";
+import CustomChart from "../charts/CustomChart";
+import { glassmorphismStyle } from "../../assets/styles";
+import ElibiblityLayerTable from "../ElibiblityLayerTable";
+import { CustomBarChat } from "../charts/CustomBarChat";
 
 function LoanEligibility({ currentLoan }) {
   return (
@@ -90,8 +90,8 @@ function LoanEligibility({ currentLoan }) {
         md={4}
         gap={12}
       >
-          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'} maxHeight={'45%'}  gap={4} item md={12}  p={4}>
-            <Grid item md={12}>
+          <Grid container sx={glassmorphismStyle} justifyContent={'center'} alignItems={'center'}   gap={4} item md={12}  p={4}>
+            <Grid container item md={12}>
           <CustomChart totalAppliedLayers={currentLoan.totalAppliedLayers} />
             </Grid>
             <Grid container justifyContent={"center"} item gap={1} md={12}>

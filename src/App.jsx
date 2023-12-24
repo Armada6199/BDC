@@ -24,14 +24,18 @@ export default function HorizontalLinearStepper() {
     formState: { errors },
     setValue
   } = useForm({
-    mode:"onBlur",
+    mode:"onSubmit",
     defaultValues: {
-      loanAmount: null,
-      numberOfMonths: null,
-      currentSalary: null,
-      activeLoanAmount: null,
-      loanAmount_Input:null,
-      loanAmount_Slider:null
+      loanAmount: currentLoan.loanAmount,
+      numberOfMonths:  currentLoan.numberOfMonths,
+      currentSalary: currentLoan.currentSalary,
+      activeLoanAmount: currentLoan.activeLoanAmount,
+      loanAmount_Input:currentLoan.loanAmount,
+      loanAmount_Slider:currentLoan.loanAmount,
+      currentSalary_Slider:currentLoan.currentSalary,
+      currentSalary_Input:currentLoan.currentSalary,
+      numberOfMonths_Input:currentLoan.numberOfMonths,
+      numberOfMonths_Slider:currentLoan.numberOfMonths
     },
   });
   function handleSetEMI(){
@@ -66,9 +70,9 @@ export default function HorizontalLinearStepper() {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       ///submit data  here
-      // console.log(formData);
+      console.log(currentLoan);
     }
-  };
+  };  
 
   const handleBack = () => {
     if(activeStep>0){

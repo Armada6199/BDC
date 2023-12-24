@@ -17,7 +17,7 @@ function AmountSlider({
   errors,
   validateGreaterThanSalary
 }) {
-  const maxAmount=currentLoan.maxAmount(currentLoan.intrestRates)
+  const maxAmount=currentLoan.maxAmountAfterDeduction||currentLoan.maxAmount(currentLoan.intrestRates)
   return (  
     <FormControl fullWidth error={errors.loanAmount_Slider?.message &&
       errors.loanAmount_Input?.message ?true:false}>

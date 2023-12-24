@@ -51,6 +51,7 @@ export const loanDetailsData = [
     Minimumtenor: 12,
     totalAppliedLayers: [],
     activeLoansDeductions:[],
+    maxAmountAfterDeduction:0,
     loadIcon: (props) => <HouseOutlinedIcon sx={props} />,
   },
   {
@@ -101,7 +102,7 @@ export const loanDetailsData = [
     Minimumtenor: 12,
     totalAppliedLayers: [],
     activeLoansDeductions:[],
-    loadIcon: (props) => <HouseOutlinedIcon sx={props} />,
+ maxAmountAfterDeduction:0,    loadIcon: (props) => <HouseOutlinedIcon sx={props} />,
   },
   {
     title: "Car Loan",
@@ -151,7 +152,8 @@ export const loanDetailsData = [
     socialSecurityDBR: 0.6,
     totalAppliedLayers: [],
     activeLoansDeductions:[],
-    loadIcon: (props) => <DirectionsCarFilledOutlinedIcon sx={props} />,
+ maxAmountAfterDeduction:0,    
+ loadIcon: (props) => <DirectionsCarFilledOutlinedIcon sx={props} />,
   },
   // {
   //   title: "Housing Loan with SLC",
@@ -235,7 +237,8 @@ export const loanDetailsData = [
     normalDBR: 0.5,
     socialSecurityDBR: 0.6,
     activeLoansDeductions:[],
-    activeLoans: [
+    maxAmountAfterDeduction:0,
+        activeLoans: [
       { activeLoanAmount: null, activeLoanLayer: null, activeLoanType: null },
     ],
     currentSalary: 0,

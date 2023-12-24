@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import Grid from "@mui/system/Unstable_Grid/Grid";
-import React from "react";
+import React, { useEffect } from "react";
 import { loanInfoInputStyle } from "../assets/styles";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -30,6 +30,18 @@ function ActiveLoanForm({
     });
     setCurrentLoan((prev) => ({ ...prev, activeLoans: newActiveLoans }));
   }
+  useEffect(()=>{
+    handleChangeMaxLoanAmount();
+  },[currentLoan.activeLoans[index]])
+  function handleChangeMaxLoanAmount(e){
+    if(activeLoan.activeLoanType===currentLoan.title){
+      let deductionValue=e?.target.value||activeLoan.activeLoanAmount;
+      const maxAmountAfterDeduction=currentLoan.maxAmount(currentLoan.intrestRates)-deductionValue;
+      setCurrentLoan((prev)=>({...prev,maxAmountAfterDeduction}));
+    }else{
+      setCurrentLoan((prev)=>({...prev,maxAmountAfterDeduction:currentLoan.maxAmount(currentLoan.intrestRates)}))
+    }
+  }
   function handleLoanInputChange(e) {
     let { name, value } = e.target;
     name = name.slice(0, name.length - 1);
@@ -45,19 +57,18 @@ function ActiveLoanForm({
     }
   }
   return (
-    <Grid container item md={12} spacing={4}  >
+    <Grid container item md={12} spacing={4} >
       <Grid item sm={12} md={3}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">
             Current Loan Type
           </InputLabel>
           <Select
-            labelId="Maintenance-Schedule"
-            id="Maintenance-Schedule"
-            label="Maintenance Schedules"
+            labelId="activeLoanType"
+            label="Loan Type"
             {...register(`activeLoanType${index}`)}
             onChange={(e) => handleLoanInputChange(e)}
-            defaultValue={"none"}
+            value={currentLoan.activeLoans[index].activeLoanType}
           >
             <MenuItem value={"Home Loan"}>Home Loan</MenuItem>
             <MenuItem value={"Land Loan"}>Land Loan</MenuItem>
@@ -72,12 +83,11 @@ function ActiveLoanForm({
             Current Loan Layer
           </InputLabel>
           <Select
-            labelId="Maintenance-Schedule"
-            id="Maintenance-Schedule"
-            label="Maintenance Schedules"
+            labelId="activeLoanLayer"
+            label="Loan Layer"
             {...register(`activeLoanLayer${index}`)}
             onChange={(e) => handleLoanInputChange(e)}
-            defaultValue={"none"}
+            value={currentLoan.activeLoans[index].activeLoanLayer}
             disabled={activeLoan.activeLoanType ? false : true}
           >
             <MenuItem value={"First Layer"}>First Layer</MenuItem>
@@ -101,19 +111,21 @@ function ActiveLoanForm({
             ),
           }}
           {...register(`activeLoanAmount${index}`)}
-          onChange={(e) => handleLoanInputChange(e)}
+          onChange={(e) => {
+            handleChangeMaxLoanAmount(e);
+            handleLoanInputChange(e)}}
           type="number"
           // inputProps={{
           //   min: ,
           //   max: currentLoan.maxMonths,
           //   defaultValue: currentLoan.maxMonths / 2,
           // }}
-          value={activeLoan.activeLoanAmount}
+          value={currentLoan.activeLoans[index].activeLoanAmount}
           variant="outlined"
           disabled={activeLoan.activeLoanLayer ? false : true}
         />
       </Grid>
-      <Grid container item justifyContent={'flex-end'} sm={12}  md={3}>
+      <Grid container item justifyContent={'flex-end'} spacing={4} sm={12}  md={3}>
         <Grid item md={6}>
           <Box
             sx={{

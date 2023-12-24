@@ -37,7 +37,7 @@ function ElibiblityLayerTable({ layer, title, activeLoansDeductions,index }) {
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center">{layer.totalInterestApplied.toFixed(3)}</TableCell>
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center"> {layer.interestRate*100} %</TableCell>
         <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} rowSpan={2} align="center">{layer.min+" "} - {" "+layer.max}</TableCell>
-        <TableCell sx={{fontWeight:'600',color:'red'}} rowSpan={2} align="center" >{activeLoansDeductions[index]?.activeDeductedAmount} JD</TableCell>
+        <TableCell sx={{fontWeight:'600',color:'red'}} rowSpan={2} align="center" >{activeLoansDeductions[index]?.activeDeductedAmount||'0'} JD</TableCell>
         {/* <TableCell sx={{fontWeight:'600'}} align="left">{activeLoansDeductions[title]&&activeLoansDeductions[layer.title]===layer.title?`${activeLoansDeductions[title]} JD`:'0 JD'}</TableCell> */}
       </TableRow>
       {activeLoansDeductions.map(activeDeduction=>(
@@ -48,8 +48,8 @@ function ElibiblityLayerTable({ layer, title, activeLoansDeductions,index }) {
         <TableCell sx={{fontWeight:'600'}} component="th" scope="row">
           Active
         </TableCell>
-        <TableCell sx={{fontWeight:'600'}} align="left">{activeDeduction.deductionType}</TableCell>
-       <TableCell sx={{fontWeight:'600'}} align="left">{activeDeduction.totalDeductedAmount}</TableCell>
+        <TableCell sx={{fontWeight:'600'}} align="left">{activeLoansDeductions[index]?.activeDeductedType}</TableCell>
+       <TableCell sx={{fontWeight:'600'}} align="left">{activeLoansDeductions[index]?.activeDeductedAmount}</TableCell>
       </TableRow>
   :null))}
   </TableBody>

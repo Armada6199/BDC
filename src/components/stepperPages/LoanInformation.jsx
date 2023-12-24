@@ -8,14 +8,14 @@ import {
   Typography,
   FormHelperText,
 } from "@mui/material";
-import React from "react";
-import ActiveLoanForm from "./ActiveLoanForm";
-import LoanDetails from "./LoanDetails";
-import LoanTypes from "./LoanTypes";
-import CurrentSalarySlider from "./LoansSlider/CurrentSalarySlider";
-import MonthsSlider from "./LoansSlider/MonthsSlider";
-import AmountSlider from "./LoansSlider/AmountSlider";
-import calculateEMI from "../utils/utils";
+import React, { useEffect } from "react";
+import ActiveLoanForm from "../ActiveLoanForm";
+import LoanDetails from "../LoanDetails";
+import LoanTypes from "../LoanTypes";
+import CurrentSalarySlider from "../loansSlider/CurrentSalarySlider";
+import MonthsSlider from "../loansSlider/MonthsSlider";
+import AmountSlider from "../loansSlider/AmountSlider";
+import calculateEMI from "../../utils/utils";
 function LoanInformation({
   currentLoan,
   setCurrentLoan,
@@ -31,6 +31,9 @@ function LoanInformation({
     name = name.split("_")[0];
     setCurrentLoan((prev) => ({ ...prev, [name]: value }));
   };
+  useEffect(()=>{
+    setCurrentLoan(prev=>({...prev}))
+  },[])
   const validateGreaterThanSalary = (value, type) => {
     let {
       loanAmount,
@@ -49,7 +52,7 @@ function LoanInformation({
         activeLoans
       );
       totalAmount += totalInterests;
-      const isEligible = payPerMonth < currentSalary / 2;
+      const isEligible = payPerMonth <= currentSalary / 2;
       const halfSalary = currentSalary / 2;
           if (isEligible) {
             return true;
@@ -116,7 +119,7 @@ function LoanInformation({
             />
           </Grid>
         </Grid>
-        <Grid container item md={10} lg={12}>
+        <Grid container item md={10}  lg={12}>
           <FormControl
             fullWidth
             error={errors.isCurrentLoan?.message ? true : false}
@@ -131,7 +134,7 @@ function LoanInformation({
               name="currentLoan"
               row
               onChange={(e) =>
-                {console.log(e.target.value)
+                {
                   setCurrentLoan({
                     ...currentLoan,
                     hasPrevLoan: e.target.value == "yes" ? true : false,
@@ -185,7 +188,7 @@ function LoanInformation({
           </FormControl>
         </Grid>
         {currentLoan.hasPrevLoan && (
-          <Grid container item  minHeight={"120px"} gap={4} md={12} >
+          <Grid container item  minHeight={"120px"} gap={4}  md={12} >
             {currentLoan.activeLoans.map((activeLoan, index) => (
               <ActiveLoanForm
                 key={index}

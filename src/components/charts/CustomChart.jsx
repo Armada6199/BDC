@@ -35,5 +35,8 @@ export default function CustomChart({totalAppliedLayers}) {
     ],
   };
   
-  return <Doughnut height={'100%'} width={'100%'}  data={data} />;
+  return <Doughnut
+  options={{maintainAspectRatio:false}}
+  height="300px"
+  width="300px" data={data} />;
 }
