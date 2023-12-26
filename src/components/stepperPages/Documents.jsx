@@ -9,14 +9,23 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React from "react";
+import Modal from '@mui/material/Modal';
+import React, { useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-function Documents({  register, errors }) {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
+import axios from "axios";
+import Template from "../Template";
+function Documents({  register, errors,currentLoan }) {
+  const [pdfString,setPdfString]=useState('');
+  // const [openModal, setOpenModal] = React.useState(false);
+  // const handleOpen = () => setOpenModal(true);
+  // const handleClose = () => setOpenModal(false);
+ useEffect(()=>{
+  const postData=async()=>{
+    const documentPost=await axios.post('http://localhost:5000/loan',currentLoan);
+    setPdfString(documentPost.data)
+  }
+  postData()
+ },[])
   return (
     <Grid container minHeight={"70vh"} maxHeight={"1rem"} gap={2}>
       <Grid item md={12}>
@@ -32,7 +41,7 @@ function Documents({  register, errors }) {
         </Typography>
       </Grid>
       <Grid item md={12}>
-        <Grid item md={4}>
+        {/* <Grid item md={4}>
           <Paper
             variant="outlined"
             style={{
@@ -65,7 +74,9 @@ function Documents({  register, errors }) {
               </Box>
             </label>
           </Paper>
-        </Grid>
+        </Grid> */}
+        {pdfString.length>0&&
+  <Template pdfString={pdfString}/>}
       </Grid>
       <Grid item md={12}>
         <FormControlLabel

@@ -15,7 +15,7 @@ const steps = [
   "4. Documents",
 ];
 export default function HorizontalLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(3);
   const [loans, setLoans] = React.useState(loanDetailsData);
   const [currentLoan, setCurrentLoan] = React.useState(loans[1]);
   const {

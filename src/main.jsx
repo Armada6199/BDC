@@ -34,6 +34,11 @@ const theme = createTheme({
     },
     secondary:{
       main:'#C4B28F',
+      dark:'#b0a080',
+      light:"#D5C9B0"
+    },
+    background:{
+
     }
     // secondary: purple,
   },
