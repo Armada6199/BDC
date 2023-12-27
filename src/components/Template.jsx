@@ -1,17 +1,22 @@
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
-import React,{FC, useState} from "react";
-import {pdfjs, Document, Page} from 'react-pdf';
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
-  import.meta.url,
-).toString();
-const App = () => {
-  const [numPages, setNumPages] = useState(null);
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "react-pdf/dist/esm/Page/TextLayer.css";
+import React, { FC, useEffect, useState } from "react";
+import { pdfjs, Document, Page } from "react-pdf";
+import "../assets/styles.css";
+import { Box } from "@mui/material";
+import {glassmorphismStyle} from '../assets/styles'
+const Template = ({ pdfString,documentWidth,documentHeight }) => {
+  useEffect(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+  });
   return (
-    <Document file="https://test.com/sample.pdf" onLoadSuccess={(e) => setNumPages(e.numPages)}>
-      {Array.from(new Array(numPages), (_el, index) => <Page key={`page_${index + 1}`} pageNumber={index + 1} width={980}/>)}
+    <Box >
+    <Document
+      file={`data:application/pdf;base64,${pdfString}`}
+    >
+        <Page  pageNumber={1}  width={documentWidth?documentWidth:500}  />
     </Document>
-  )
-}
-export default App;
+    </Box>
+  );
+};
+export default Template;
