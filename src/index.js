@@ -38,7 +38,7 @@ const theme = createTheme({
       light:"#D5C9B0"
     },
     background:{
-
+      main:"#215190"
     }
     // secondary: purple,
   },

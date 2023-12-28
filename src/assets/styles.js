@@ -47,3 +47,8 @@ export const glassmorphismStyle = {
       },
     },
   };
+ export const documentButtonsStyles={
+    ".MuiButton-outlined": {
+      borderColor:'#215190'
+      },
+  }

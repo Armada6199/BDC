@@ -8,10 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 function ElibiblityLayerTable({ currentLoan }) {
   const {totalAppliedLayers,activeLoansDeductions}=currentLoan;
-  // const layerDeductionSum={[layer.title]:0}
-  // activeLoansDeductions.forEach(e=>{
-  //  layerDeductionSum[e.activeDeductedLayer]=+ e.activeDeductedAmount;
-  // });
+  const layerDeductionSum={};
+  activeLoansDeductions.forEach(e=>{
+   layerDeductionSum[e.activeDeductedLayer]=+ e.activeDeductedAmount;
+  });
   return (
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 650,}} aria-label="simple table">
@@ -41,7 +41,7 @@ function ElibiblityLayerTable({ currentLoan }) {
   <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} align="center" rowSpan={2}>{layer.totalInterestApplied}</TableCell>
   <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} align="center" rowSpan={2}>{layer.interestRate*100} %</TableCell>
   <TableCell sx={{fontWeight:'600',border:'1px solid lightgray'}} align="center" rowSpan={2}>{`${layer.min} - ${layer.max}`}</TableCell>
-  <TableCell sx={{fontWeight:'600',border:'1px solid lightgray',color:'red'}} rowSpan={2} align="center">{2000}</TableCell>
+  <TableCell sx={{fontWeight:'600',border:'1px solid lightgray',color:layerDeductionSum[layer.title]?'red':''}} rowSpan={2} align="center">{layerDeductionSum[layer.title]?layerDeductionSum[layer.title]:'0'} JD</TableCell>
 </TableRow>
 {activeLoansDeductions.map(activeLoan=>(
   activeLoan.activeDeductedLayer==layer.title&&
